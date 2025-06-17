@@ -11,7 +11,7 @@ end
 
 function load_files(dir::String)
     filesDict = Dict()
-    full_dir = datadir("sims", dir)
+    full_dir = datadir( dir)
 
     println("Loading files from: $full_dir ...")
 
@@ -106,7 +106,7 @@ end
 
 function load_hist_processes(dir::String, mode::String)
     include(srcdir("params/Params.jl"))
-    full_dir = datadir("sims", dir)
+    full_dir = datadir(dir)
     processes = HistProcess[]
 
     println("Loading files from: $full_dir ...")
@@ -170,7 +170,7 @@ end
 
 function load_ndim_processes(dir::String, bins::NamedTuple, varNames::Vector{String}; roi = nothing)
     include(srcdir("params/Params.jl"))
-    full_dir = datadir("mva", dir)
+    full_dir = datadir(dir)
     processes = DataProcessND[]
 
     println("Loading files from: $full_dir ...")
@@ -217,7 +217,7 @@ end
 
 function load_3D_processes(dir::String, binsAngle, binsESingle, binsESum; fwhm = 0.08)
     include(srcdir("params/Params.jl"))
-    full_dir = datadir("sims", dir)
+    full_dir = datadir(dir)
     processes = DataProcess3D[]
 
     println("Loading files from: $full_dir ...")
