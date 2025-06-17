@@ -30,7 +30,8 @@ export
     add_vertex_dz_separation_column!,
     generate_pseudo_data,
     get_sigma_keV,
-    get_sigma_MeV
+    get_sigma_MeV,
+    get_sensitivities_vs_time
 
 include("ExpectedCounts.jl")
 export 
