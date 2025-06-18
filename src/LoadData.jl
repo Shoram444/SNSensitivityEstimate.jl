@@ -11,14 +11,13 @@ end
 
 function load_files(dir::String)
     filesDict = Dict()
-    full_dir = datadir( dir)
 
-    println("Loading files from: $full_dir ...")
+    println("Loading files from: $dir ...")
 
     nFiles = 0
-    for file in readdir(full_dir)
+    for file in readdir(dir)
         nFiles += 1
-        df = ROOTFile(joinpath(full_dir, file)) |> ffrf
+        df = ROOTFile(joinpath(dir, file)) |> ffrf
         fileName = split(file, ".")[1]  |> split |> first 
 
         filesDict[fileName] = df
@@ -29,22 +28,20 @@ function load_files(dir::String)
 end
 
 function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothing)
-    include(srcdir("params/Params.jl"))
-    full_dir = datadir(dir)
     processes = DataProcess[]
 
-    println("Loading files from: $full_dir ...")
+    println("Loading files from: $dir ...")
     println("mode: $mode ")
 
     nFiles = 0
-    for file in readdir(full_dir)
+    for file in readdir(dir)
         println("file: $file")
         nFiles += 1
         if( split(file, ".")[end] != "root" )
             continue
         end
         
-        f = ROOTFile(joinpath(full_dir, file)) 
+        f = ROOTFile(joinpath(dir, file)) 
         if(!haskey(f, "tree"))
             continue
         end
@@ -105,21 +102,19 @@ end
 
 
 function load_hist_processes(dir::String, mode::String)
-    include(srcdir("params/Params.jl"))
-    full_dir = datadir(dir)
     processes = HistProcess[]
 
-    println("Loading files from: $full_dir ...")
+    println("Loading files from: $dir ...")
     println("mode: $mode ")
 
     nFiles = 0
-    for file in readdir(full_dir)
+    for file in readdir(dir)
         nFiles += 1
         if( split(file, ".")[end] != "root" )
             continue
         end
         
-        f = ROOTFile(joinpath(full_dir, file)) 
+        f = ROOTFile(joinpath(dir, file)) 
         if(haskey(f, "tree"))
             continue
         end
@@ -169,20 +164,18 @@ end
 
 
 function load_ndim_processes(dir::String, bins::NamedTuple, varNames::Vector{String}; roi = nothing)
-    include(srcdir("params/Params.jl"))
-    full_dir = datadir(dir)
     processes = DataProcessND[]
 
-    println("Loading files from: $full_dir ...")
+    println("Loading files from: $dir ...")
     println("mode: NDim ")
 
     nFiles = 0
-    for file in readdir(full_dir)
+    for file in readdir(dir)
         nFiles += 1
         if( split(file, ".")[end] != "root" )
             continue
         end
-        f = ROOTFile(joinpath(full_dir, file)) 
+        f = ROOTFile(joinpath(dir, file)) 
         if(!haskey(f, "tree"))
             continue
         end
@@ -215,21 +208,19 @@ function load_ndim_processes(dir::String, bins::NamedTuple, varNames::Vector{Str
 end
 
 function load_3D_processes(dir::String, binsAngle, binsESingle, binsESum; fwhm = 0.08)
-    include(srcdir("params/Params.jl"))
-    full_dir = datadir(dir)
     processes = DataProcess3D[]
 
-    println("Loading files from: $full_dir ...")
+    println("Loading files from: $dir ...")
     println("mode: NDim ")
 
     nFiles = 0
-    for file in readdir(full_dir)
+    for file in readdir(dir)
         nFiles += 1
         if( split(file, ".")[end] != "root" )
             continue
         end
         
-        f = ROOTFile(joinpath(full_dir, file)) 
+        f = ROOTFile(joinpath(dir, file)) 
         if(!haskey(f, "tree"))
             continue
         end

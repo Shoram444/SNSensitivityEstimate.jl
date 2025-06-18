@@ -135,5 +135,7 @@ export
     f_dirichlet,
     f_uniform_bkg,
     get_sens_bayes_uniform
+
+include("params/Params.jl")
     
 end # module
