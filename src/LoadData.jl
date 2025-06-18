@@ -182,7 +182,6 @@ function load_ndim_processes(dir::String, bins::NamedTuple, varNames::Vector{Str
         if( split(file, ".")[end] != "root" )
             continue
         end
-        
         f = ROOTFile(joinpath(full_dir, file)) 
         if(!haskey(f, "tree"))
             continue
