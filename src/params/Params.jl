@@ -1,9 +1,9 @@
 import SNSensitivityEstimate.halfLife_to_activity
 using Measurements
 
-include(srcdir("params/SNparams.jl")) 
-include(srcdir("params/Activities.jl")) 
-include(srcdir("params/NSimulated.jl")) 
+include("SNparams.jl") 
+include("Activities.jl") 
+include("NSimulated.jl") 
 
 
 
@@ -13,8 +13,8 @@ binningDict = Dict(
     :Phi => 0:5:180,
 )
 
-include(srcdir("params/SumE.jl")) 
-include(srcdir("params/SingleE.jl")) 
-include(srcdir("params/Phi.jl")) 
+include("SumE.jl") 
+include("SingleE.jl") 
+include("Phi.jl") 
 
 

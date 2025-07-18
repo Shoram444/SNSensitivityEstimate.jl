@@ -4,6 +4,7 @@
     struct DataProcess -> `(dataVector, isotopeName, signal, activity, timeMeas, nTotalSim, bins, efficiency)`
 
 The following fields are defined:
+
     + dataVector::Vector{<:Real} - vector of initial data points
     + isotopeName::String - isotope name 
     + signal::Bool - signal or background

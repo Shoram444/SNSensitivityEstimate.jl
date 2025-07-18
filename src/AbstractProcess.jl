@@ -141,6 +141,27 @@ function get_tHalf_map(SNparams, α, processes::AbstractProcess...; approximate=
     return tHalf
 end
 
+function get_tHalf_map(W, signal_amount, Na, timeMeasYear, α, processes::AbstractProcess...; approximate="formula")
+    ε = Hist2D(; binedges=(processes[1].bins, processes[1].bins))
+
+    for p in processes # sum efficiencies of the signal processes (does this make sense?)
+        if(p.signal)
+            merge!(ε, p.efficiency)
+        end
+    end
+    b = get_bkg_counts(processes...)
+
+    W, signal_amount, Na, timeMeasYear
+    constantTerm = log(2) * (Na / W) * (signal_amount * timeMeasYear )
+     
+    b.bincounts .= get_FC.(b.bincounts, α; approximate=approximate)
+
+    tHalf = constantTerm * ε / b
+    replace!(tHalf.bincounts, NaN => 0.0)
+
+    return tHalf
+end
+
 
 
 

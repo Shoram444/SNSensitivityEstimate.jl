@@ -1,6 +1,5 @@
 using Distributions
 
-ffrf(file; roi = nothing) = fill_from_root_file(file, "tree", ["phi", "reconstructedEnergy1", "reconstructedEnergy2"], roi = roi)
 function smear_energy(E::Real, fwhm::Real) 
     if(fwhm == 0)
         return E
@@ -9,7 +8,8 @@ function smear_energy(E::Real, fwhm::Real)
     return rand(Normal(E, sigma))
 end
 
-function load_files(dir::String)
+function load_files(dir::String; treeName = "tree", keys = ["phi", "reconstructedEnergy1", "reconstructedEnergy2"], roi = nothing)
+    ffrf(file; roi = roi, treeName = treeName, keys = keys) = fill_from_root_file(file, treeName, keys, roi = roi)
     filesDict = Dict()
 
     println("Loading files from: $dir ...")
@@ -27,7 +27,7 @@ function load_files(dir::String)
     return filesDict
 end
 
-function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothing)
+function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothing, treeName = "tree")
     processes = DataProcess[]
 
     println("Loading files from: $dir ...")
@@ -42,11 +42,11 @@ function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothin
         end
         
         f = ROOTFile(joinpath(dir, file)) 
-        if(!haskey(f, "tree"))
+        if(!haskey(f, treeName))
             continue
         end
 
-        data = LazyTree(f, "tree", keys(f["tree"])) 
+        data = LazyTree(f, treeName, keys(f[treeName])) 
 
         if roi !== nothing
             for (field, (minVal, maxVal)) in pairs(roi)
