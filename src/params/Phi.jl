@@ -408,6 +408,28 @@ phiNeutronParams = Dict(
     :bins => binningDict[:Phi],
 )
 
+phiK40_calo_8inch_scin_bulk = Dict(
+    :isotopeName => "K40_calo_8inch_scin_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_calo_8inch_scin_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_calo_8inch_scin_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "calo_8inch_scin_bulk",
+    :amount => SNparams["caloMass_8inch"]
+)
+
+phiBi214_calo_8inch_scin_bulk = Dict(
+    :isotopeName => "Bi214_calo_8inch_scin_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_calo_8inch_scin_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_calo_8inch_scin_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "calo_8inch_scin_bulk",
+    :amount => SNparams["caloMass_8inch"]
+)
+
 phiParams = Dict(
     :Bi214_foil_bulk => phiBi214_foil_bulk_Params,
     :Bi214_foil_surface => phiBi214_foil_surface_Params,
@@ -444,4 +466,6 @@ phiParams = Dict(
     :bb0nuRHl_foil_bulk => phibb0nuRHlParams,
     :neutron_external => phiNeutronParams,
     :gamma_experimental_surface => phigamma_experimental_surface_Params,
+    :K40_calo_8inch_scin_bulk => phiK40_calo_8inch_scin_bulk,
+    :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk
 )

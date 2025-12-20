@@ -400,6 +400,30 @@ sumNeutronParams = Dict(
     :bins => binningDict[:SumE],
 )
 
+### K40 8inch calo bulk
+sumEK40_8inch_calo_bulk_Params = Dict(
+    :isotopeName => "K40_8inch_calo_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_8inch_calo_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_8inch_calo_bulk],
+    :bins => binningDict[:sumE],
+    :vertexPosition => "8inch_calo_bulk",
+    :amount => SNparams["caloMass_8inch"]
+)
+
+### Bi214 8inch calo bulk
+sumEBi214_8inch_calo_bulk_Params = Dict(
+    :isotopeName => "Bi214_8inch_calo_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_8inch_calo_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_8inch_calo_bulk],
+    :bins => binningDict[:sumE],
+    :vertexPosition => "8inch_calo_bulk",
+    :amount => SNparams["caloMass_8inch"]
+)
+
 sumEParams = Dict(
     :Bi214_foil_bulk => sumEBi214_foil_bulk_Params,
     :Bi214_foil_surface => sumEBi214_foil_surface_Params,
@@ -435,5 +459,7 @@ sumEParams = Dict(
     :bb0nuM2_foil_bulk => sumEbb0nuM2Params,
     :bb0nuRHl_foil_bulk => sumEbb0nuRHlParams,
     :neutron_external => sumNeutronParams,
-    :gamma_experimental_surface => sumEgamma_experimental_surface_Params
+    :gamma_experimental_surface => sumEgamma_experimental_surface_Params,
+    :K40_calo_8inch_scin_bulk => sumEK40_8inch_calo_bulk_Params,
+    :Bi214_calo_8inch_scin_bulk => sumEBi214_8inch_calo_bulk_Params
 )

@@ -1,4 +1,4 @@
-# number of simulated events per process
+# number of simulated events per process using the "final_phd" config
 SimulationParams = Dict(
     :Bi214_foil_bulk => 1e8, 
     :Bi214_foil_surface => 1e8,

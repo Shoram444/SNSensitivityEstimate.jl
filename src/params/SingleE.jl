@@ -414,6 +414,31 @@ singleNeutronParams = Dict(
     :bins => binningDict[:SingleE],
 )
 
+### K40 8inch calo bulk
+singleEK40_8inch_calo_bulk_Params = Dict(
+    :isotopeName => "K40_8inch_calo_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_8inch_calo_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_8inch_calo_bulk],
+    :bins => binningDict[:SingleE],
+    :vertexPosition => "8inch_calo_bulk",
+    :amount => SNparams["caloMass_8inch"]
+)
+
+### Bi214 8inch calo bulk
+singleEBi214_8inch_calo_bulk_Params = Dict(
+    :isotopeName => "Bi214_8inch_calo_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_8inch_calo_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_8inch_calo_bulk],
+    :bins => binningDict[:SingleE],
+    :vertexPosition => "8inch_calo_bulk",
+    :amount => SNparams["caloMass_8inch"]
+)
+
+
 singleEParams = Dict(
     :Bi214_foil_bulk => singleEBi214_foil_bulk_Params,
     :Bi214_foil_surface => singleEBi214_foil_surface_Params,
@@ -449,5 +474,7 @@ singleEParams = Dict(
     :bb0nuM2_foil_bulk => singleEbb0nuM2Params,
     :bb0nuRHl_foil_bulk => singleEbb0nuRHlParams,
     :neutron_external => singleNeutronParams,
-    :gamma_experimental_surface => singleEgamma_experimental_surface_Params
+    :gamma_experimental_surface => singleEgamma_experimental_surface_Params,
+    :K40_calo_8inch_scin_bulk => singleEK40_8inch_calo_bulk_Params,
+    :Bi214_calo_8inch_scin_bulk => singleEBi214_8inch_calo_bulk_Params
 )
