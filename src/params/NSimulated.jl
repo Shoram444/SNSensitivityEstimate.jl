@@ -32,8 +32,12 @@ SimulationParams = Dict(
     :bb0nu_foil_bulk => 1e7,
     :bb0nuM1_foil_bulk => 9e6,
     :bb0nuM2_foil_bulk => 1e7,
+    :bb0nuScalar0_foil_bulk => 1e7,
+    :bb0nuScalar1_foil_bulk => 1e7,
+    :bb0nuScalar2_foil_bulk => 1e7,
     :bb0nuRHl_foil_bulk => 0.1e8,
     :gamma_experimental_surface => 5e8,
+    :gamma_hall_bulk => 5e8,
     :K40_calo_8inch_scin_bulk => 9*1e7,
     :Bi214_calo_8inch_scin_bulk => 10*1e7
 )

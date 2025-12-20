@@ -137,5 +137,14 @@ export
     get_sens_bayes_uniform
 
 include("params/Params.jl")
-    
+export 
+    SNparams,
+    BkgActivityParams,
+    SigActivityParams,
+    SimulationParams,
+    binningDict,
+    phiParams,
+    singleEParams,
+    sumEParams
+
 end # module

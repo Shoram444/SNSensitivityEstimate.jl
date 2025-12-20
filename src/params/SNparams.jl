@@ -8,6 +8,7 @@ SNparams = Dict(
     "PMTGlassMass" => 286,                      # PMT glass mass in [kg]
     "wireBulkMass" => 20,                       # DUMMY VALUE!! mass of the tracker wires in [kg]
     "hall_surface" => 1,                       # External gamma activity is given in [Bq] so no need to scale by amount
+    "hall_bulk" => 1,                       # External gamma activity is given in [Bq] so no need to scale by amount
     "t" => 2.86 * 365 * 24 * 3600,              # measurement time in [s]
     "tYear" => 2.86,                             # measurement time in [y]
     "SeThalf2nu" => 9.39 * 1e19 * 365 * 24 * 3600,    # 2nu Se82 half life in [s], results from NEMO-3

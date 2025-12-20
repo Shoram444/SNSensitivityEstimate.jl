@@ -227,6 +227,18 @@ phigamma_experimental_surface_Params = Dict(
     :amount => 1.0
 )
 
+phigamma_hall_bulk_Params = Dict(
+    :isotopeName => "gamma_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:gamma_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:gamma_hall_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+
 ### bb_foil_bulk
 
 phibbParams = Dict(
@@ -388,6 +400,44 @@ phibb0nuM2Params = Dict(
     :amount => SNparams["foilMass"]
 )
 
+### bb0nuScalar0_foil_bulk
+
+phibb0nuScalar0Params = Dict(
+    :isotopeName => "bb0nuScalar0_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar0_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar0_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### bb0nuScalar1_foil_bulk
+
+phibb0nuScalar1Params = Dict(
+    :isotopeName => "bb0nuScalar1_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar1_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar1_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### bb0nuScalar2_foil_bulk
+phibb0nuScalar2Params = Dict(
+    :isotopeName => "bb0nuScalar2_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar2_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar2_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
 ### bb0nuRHl_foil_bulk
 
 phibb0nuRHlParams = Dict(
@@ -466,6 +516,10 @@ phiParams = Dict(
     :bb0nuRHl_foil_bulk => phibb0nuRHlParams,
     :neutron_external => phiNeutronParams,
     :gamma_experimental_surface => phigamma_experimental_surface_Params,
+    :gamma_hall_bulk => phigamma_hall_bulk_Params,
     :K40_calo_8inch_scin_bulk => phiK40_calo_8inch_scin_bulk,
-    :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk
+    :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk,
+    :bb0nuScalar0_foil_bulk => phibb0nuScalar0Params,
+    :bb0nuScalar1_foil_bulk => phibb0nuScalar1Params,
+    :bb0nuScalar2_foil_bulk => phibb0nuScalar2Params
 )
