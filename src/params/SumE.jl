@@ -32,7 +32,18 @@ sumEBi214_PMT_glass_bulk_Params = Dict(
     :nTotalSim => SimulationParams[:Bi214_PMT_glass_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "PMT_glass",
-    :amount => SNparams["PMTGlassMass"]
+    :amount => SNparams["PMT8"]
+)
+
+sumEBi214_PMT5_glass_bulk_Params = Dict(
+    :isotopeName => "Bi214_PMT5_glass_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_PMT5_glass_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_PMT5_glass_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "PMT5_glass",
+    :amount => SNparams["PMT5"]
 )
 
 sumEBi214_wire_bulk_Params = Dict(
@@ -168,7 +179,18 @@ sumETl208_PMT_glass_bulk_Params = Dict(
     :nTotalSim => SimulationParams[:Bi214_PMT_glass_bulk], 
     :bins => binningDict[:SumE],
     :vertexPosition => "PMT_glass",
-    :amount => SNparams["PMTGlassMass"]
+    :amount => SNparams["PMT8"]
+)
+
+sumETl208_PMT5_glass_bulk_Params = Dict(
+    :isotopeName => "Tl208_PMT5_glass_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Tl208_PMT5_glass_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Tl208_PMT5_glass_bulk], 
+    :bins => binningDict[:SumE],
+    :vertexPosition => "PMT5_glass",
+    :amount => SNparams["PMT5"]
 )
 
 ### Pa234m
@@ -216,7 +238,18 @@ sumEK40_PMT_glass_bulk_Params = Dict(
     :nTotalSim => SimulationParams[:K40_PMT_glass_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "PMT_glass_bulk",
-    :amount => SNparams["PMTGlassMass"]
+    :amount => SNparams["PMT8"]
+)
+
+sumEK40_PMT5_glass_bulk_Params = Dict(
+    :isotopeName => "K40_PMT5_glass_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_PMT5_glass_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_PMT5_glass_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "PMT5_glass_bulk",
+    :amount => SNparams["PMT5"]
 )
 
 sumEgamma_experimental_surface_Params = Dict(
@@ -227,6 +260,17 @@ sumEgamma_experimental_surface_Params = Dict(
     :nTotalSim => SimulationParams[:gamma_experimental_surface],
     :bins => binningDict[:SumE],
     :vertexPosition => "experimental_surface",
+    :amount => 1.0
+)
+
+sumEgamma_hall_bulk_Params = Dict(
+    :isotopeName => "gamma_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:gamma_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:gamma_hall_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "hall_bulk",
     :amount => 1.0
 )
 
@@ -381,6 +425,42 @@ sumEbb0nuM2Params = Dict(
     :amount => SNparams["foilMass"]
 )
 
+### 0nubbScalar0
+sumEbb0nuScalar0Params = Dict(
+    :isotopeName => "bb0nuScalar0_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar0_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar0_foil_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### 0nubbScalar1
+sumEbb0nuScalar1Params = Dict(
+    :isotopeName => "bb0nuScalar1_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar1_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar1_foil_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### 0nubbScalar2
+sumEbb0nuScalar2Params = Dict(
+    :isotopeName => "bb0nuScalar2_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar2_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar2_foil_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
 ### 0nubbRHl
 sumEbb0nuRHlParams = Dict(
     :isotopeName => "bb0nuRHl_foil_bulk", 
@@ -401,26 +481,26 @@ sumNeutronParams = Dict(
 )
 
 ### K40 8inch calo bulk
-sumEK40_8inch_calo_bulk_Params = Dict(
-    :isotopeName => "K40_8inch_calo_bulk", 
+sumEK40_calo_8inch_scin_bulk_Params = Dict(
+    :isotopeName => "K40_calo_8inch_scin_bulk", 
     :signal => :false, 
-    :activity => BkgActivityParams[:K40_8inch_calo_bulk], 
+    :activity => BkgActivityParams[:K40_calo_8inch_scin_bulk], 
     :timeMeas => SNparams["t"], 
-    :nTotalSim => SimulationParams[:K40_8inch_calo_bulk],
-    :bins => binningDict[:sumE],
-    :vertexPosition => "8inch_calo_bulk",
+    :nTotalSim => SimulationParams[:K40_calo_8inch_scin_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "calo_8inch_scin_bulk",
     :amount => SNparams["caloMass_8inch"]
 )
 
 ### Bi214 8inch calo bulk
-sumEBi214_8inch_calo_bulk_Params = Dict(
-    :isotopeName => "Bi214_8inch_calo_bulk", 
+sumEBi214_calo_8inch_scin_bulk_Params = Dict(
+    :isotopeName => "Bi214_calo_8inch_scin_bulk", 
     :signal => :false, 
-    :activity => BkgActivityParams[:Bi214_8inch_calo_bulk], 
+    :activity => BkgActivityParams[:Bi214_calo_8inch_scin_bulk], 
     :timeMeas => SNparams["t"], 
-    :nTotalSim => SimulationParams[:Bi214_8inch_calo_bulk],
-    :bins => binningDict[:sumE],
-    :vertexPosition => "8inch_calo_bulk",
+    :nTotalSim => SimulationParams[:Bi214_calo_8inch_scin_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "calo_8inch_scin_bulk",
     :amount => SNparams["caloMass_8inch"]
 )
 
@@ -429,6 +509,7 @@ sumEParams = Dict(
     :Bi214_foil_surface => sumEBi214_foil_surface_Params,
     :Bi214_hall_surface => sumEBi214_hall_surface_Params,
     :Bi214_PMT_glass_bulk => sumEBi214_PMT_glass_bulk_Params,
+    :Bi214_PMT5_glass_bulk => sumEBi214_PMT5_glass_bulk_Params,
     :Bi214_wire_bulk => sumEBi214_wire_bulk_Params,
     :Bi214_wire_surface => sumEBi214_wire_surface_Params,
     :Bi214_field_wires => sumEBi214_field_wires_Params,
@@ -440,10 +521,12 @@ sumEParams = Dict(
     :Tl208_foil_surface => sumETl208_foil_surface_Params,
     :Tl208_hall_surface => sumETl208_hall_surface_Params,
     :Tl208_PMT_glass_bulk => sumETl208_PMT_glass_bulk_Params,
+    :Tl208_PMT5_glass_bulk => sumETl208_PMT5_glass_bulk_Params,
     :Pa234m_foil_bulk => sumEPa234m_foil_bulk_Params,
     :K40_foil_bulk => sumEK40_foil_bulk_Params,
     :K40_hall_surface => sumEK40_hall_surface_Params,
     :K40_PMT_glass_bulk => sumEK40_PMT_glass_bulk_Params,
+    :K40_PMT5_glass_bulk => sumEK40_PMT5_glass_bulk_Params,
     :bb_foil_bulk => sumEbbParams,
     :Xi037_foil_bulk => sumEXiParams,
     :RH037_foil_bulk => sumERH037Params,
@@ -460,6 +543,10 @@ sumEParams = Dict(
     :bb0nuRHl_foil_bulk => sumEbb0nuRHlParams,
     :neutron_external => sumNeutronParams,
     :gamma_experimental_surface => sumEgamma_experimental_surface_Params,
-    :K40_calo_8inch_scin_bulk => sumEK40_8inch_calo_bulk_Params,
-    :Bi214_calo_8inch_scin_bulk => sumEBi214_8inch_calo_bulk_Params
+    :gamma_hall_bulk => sumEgamma_hall_bulk_Params,
+    :K40_calo_8inch_scin_bulk => sumEK40_calo_8inch_scin_bulk_Params,
+    :Bi214_calo_8inch_scin_bulk => sumEBi214_calo_8inch_scin_bulk_Params,
+    :bb0nuScalar0_foil_bulk => sumEbb0nuScalar0Params,
+    :bb0nuScalar1_foil_bulk => sumEbb0nuScalar1Params,
+    :bb0nuScalar2_foil_bulk => sumEbb0nuScalar2Params
 )

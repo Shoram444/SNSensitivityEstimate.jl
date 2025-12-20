@@ -30,7 +30,18 @@ phiBi214_PMT_glass_bulk_Params = Dict(
     :nTotalSim => SimulationParams[:Bi214_PMT_glass_bulk],
     :bins => binningDict[:Phi],
     :vertexPosition => "PMT_glass",
-    :amount => SNparams["PMTGlassMass"]
+    :amount => SNparams["PMT8"]
+)
+
+phiBi214_PMT5_glass_bulk_Params = Dict(
+    :isotopeName => "Bi214_PMT5_glass_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_PMT5_glass_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_PMT5_glass_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "PMT5_glass",
+    :amount => SNparams["PMT5"]
 )
 
 phiBi214_wire_bulk_Params = Dict(
@@ -162,10 +173,21 @@ phiTl208_PMT_glass_bulk_Params = Dict(
     :signal => :false, 
     :activity => BkgActivityParams[:Tl208_PMT_glass_bulk], 
     :timeMeas => SNparams["t"], 
-    :nTotalSim => SimulationParams[:Bi214_PMT_glass_bulk], 
+    :nTotalSim => SimulationParams[:Tl208_PMT_glass_bulk], 
     :bins => binningDict[:Phi],
     :vertexPosition => "PMT_glass",
-    :amount => SNparams["PMTGlassMass"]
+    :amount => SNparams["PMT8"]
+)
+
+phiTl208_PMT5_glass_bulk_Params = Dict(
+    :isotopeName => "Tl208_PMT5_glass_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Tl208_PMT5_glass_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Tl208_PMT5_glass_bulk], 
+    :bins => binningDict[:Phi],
+    :vertexPosition => "PMT5_glass",
+    :amount => SNparams["PMT5"]
 )
 
 ### Pa234m
@@ -213,7 +235,18 @@ phiK40_PMT_glass_bulk_Params = Dict(
     :nTotalSim => SimulationParams[:K40_PMT_glass_bulk],
     :bins => binningDict[:Phi],
     :vertexPosition => "PMT_glass_bulk",
-    :amount => SNparams["PMTGlassMass"]
+    :amount => SNparams["PMT8"]
+)
+
+phiK40_PMT5_glass_bulk_Params = Dict(
+    :isotopeName => "K40_PMT5_glass_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_PMT5_glass_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_PMT5_glass_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "PMT5_glass_bulk",
+    :amount => SNparams["PMT5"]
 )
 
 phigamma_experimental_surface_Params = Dict(
@@ -226,6 +259,18 @@ phigamma_experimental_surface_Params = Dict(
     :vertexPosition => "experimental_surface",
     :amount => 1.0
 )
+
+phigamma_hall_bulk_Params = Dict(
+    :isotopeName => "gamma_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:gamma_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:gamma_hall_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
 
 ### bb_foil_bulk
 
@@ -388,6 +433,44 @@ phibb0nuM2Params = Dict(
     :amount => SNparams["foilMass"]
 )
 
+### bb0nuScalar0_foil_bulk
+
+phibb0nuScalar0Params = Dict(
+    :isotopeName => "bb0nuScalar0_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar0_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar0_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### bb0nuScalar1_foil_bulk
+
+phibb0nuScalar1Params = Dict(
+    :isotopeName => "bb0nuScalar1_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar1_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar1_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### bb0nuScalar2_foil_bulk
+phibb0nuScalar2Params = Dict(
+    :isotopeName => "bb0nuScalar2_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:bb0nuScalar2_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:bb0nuScalar2_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
 ### bb0nuRHl_foil_bulk
 
 phibb0nuRHlParams = Dict(
@@ -435,6 +518,7 @@ phiParams = Dict(
     :Bi214_foil_surface => phiBi214_foil_surface_Params,
     :Bi214_hall_surface => phiBi214_hall_surface_Params,
     :Bi214_PMT_glass_bulk => phiBi214_PMT_glass_bulk_Params,
+    :Bi214_PMT5_glass_bulk => phiBi214_PMT5_glass_bulk_Params,
     :Bi214_wire_bulk => phiBi214_wire_bulk_Params,
     :Bi214_wire_surface => phiBi214_wire_surface_Params,
     :Bi214_field_wires => phiBi214_field_wires_Params,
@@ -446,10 +530,12 @@ phiParams = Dict(
     :Tl208_foil_surface => phiTl208_foil_surface_Params,
     :Tl208_hall_surface => phiTl208_hall_surface_Params,
     :Tl208_PMT_glass_bulk => phiTl208_PMT_glass_bulk_Params,
+    :Tl208_PMT5_glass_bulk => phiTl208_PMT5_glass_bulk_Params,
     :Pa234m_foil_bulk => phiPa234m_foil_bulk_Params,
     :K40_foil_bulk => phiK40_foil_bulk_Params,
     :K40_hall_surface => phiK40_hall_surface_Params,
-    :K40_PMT_glass_bulk => phiK40_PMT_glass_bulk_Params,
+    :K40_PMT_glass_bulk => phiK40_PMT_glass_Params,
+    :K40_PMT5_glass_bulk => phiK40_PMT5_glass_bulk_Params,
     :bb_foil_bulk => phibbParams,
     :Xi037_foil_bulk => phiXiParams,
     :RH037_foil_bulk => phiRH037Params,
@@ -466,6 +552,10 @@ phiParams = Dict(
     :bb0nuRHl_foil_bulk => phibb0nuRHlParams,
     :neutron_external => phiNeutronParams,
     :gamma_experimental_surface => phigamma_experimental_surface_Params,
+    :gamma_hall_bulk => phigamma_hall_bulk_Params,
     :K40_calo_8inch_scin_bulk => phiK40_calo_8inch_scin_bulk,
-    :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk
+    :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk,
+    :bb0nuScalar0_foil_bulk => phibb0nuScalar0Params,
+    :bb0nuScalar1_foil_bulk => phibb0nuScalar1Params,
+    :bb0nuScalar2_foil_bulk => phibb0nuScalar2Params
 )
