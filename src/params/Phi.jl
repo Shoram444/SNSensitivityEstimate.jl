@@ -271,6 +271,38 @@ phigamma_hall_bulk_Params = Dict(
     :amount => 1.0
 )
 
+phiTl208_hall_bulk_Params = Dict(
+    :isotopeName => "Tl208_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Tl208_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Tl208_hall_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+phiBi214_hall_bulk_Params = Dict(
+    :isotopeName => "Bi214_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_hall_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+phiK40_hall_bulk_Params = Dict(
+    :isotopeName => "K40_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_hall_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
 
 ### bb_foil_bulk
 
@@ -553,6 +585,9 @@ phiParams = Dict(
     :neutron_external => phiNeutronParams,
     :gamma_experimental_surface => phigamma_experimental_surface_Params,
     :gamma_hall_bulk => phigamma_hall_bulk_Params,
+    :Tl208_hall_bulk => phiTl208_hall_bulk_Params,
+    :Bi214_hall_bulk => phiBi214_hall_bulk_Params,
+    :K40_hall_bulk => phiK40_hall_bulk_Params,
     :K40_calo_8inch_scin_bulk => phiK40_calo_8inch_scin_bulk,
     :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk,
     :bb0nuScalar0_foil_bulk => phibb0nuScalar0Params,

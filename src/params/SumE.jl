@@ -274,6 +274,40 @@ sumEgamma_hall_bulk_Params = Dict(
     :amount => 1.0
 )
 
+sumETl208_hall_bulk_Params = Dict(
+    :isotopeName => "Tl208_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Tl208_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Tl208_hall_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+sumEBi214_hall_bulk_Params = Dict(
+    :isotopeName => "Bi214_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_hall_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+sumEK40_hall_bulk_Params = Dict(
+    :isotopeName => "K40_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_hall_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+
 ### 2nubb
 
 sumEbbParams = Dict(
@@ -543,6 +577,9 @@ sumEParams = Dict(
     :bb0nuRHl_foil_bulk => sumEbb0nuRHlParams,
     :neutron_external => sumNeutronParams,
     :gamma_experimental_surface => sumEgamma_experimental_surface_Params,
+    :Tl208_hall_bulk => sumETl208_hall_bulk_Params,
+    :Bi214_hall_bulk => sumEBi214_hall_bulk_Params,
+    :K40_hall_bulk => sumEK40_hall_bulk_Params,
     :gamma_hall_bulk => sumEgamma_hall_bulk_Params,
     :K40_calo_8inch_scin_bulk => sumEK40_calo_8inch_scin_bulk_Params,
     :Bi214_calo_8inch_scin_bulk => sumEBi214_calo_8inch_scin_bulk_Params,

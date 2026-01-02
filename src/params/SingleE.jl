@@ -281,6 +281,39 @@ singleEgamma_hall_bulk_Params = Dict(
     :amount => 1.0
 )
 
+singleETl208_hall_bulk_Params = Dict(
+    :isotopeName => "Tl208_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Tl208_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Tl208_hall_bulk],
+    :bins => binningDict[:SingleE],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+singleEBi214_hall_bulk_Params = Dict(
+    :isotopeName => "Bi214_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:Bi214_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Bi214_hall_bulk],
+    :bins => binningDict[:SingleE],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
+singleEK40_hall_bulk_Params = Dict(
+    :isotopeName => "K40_hall_bulk", 
+    :signal => :false, 
+    :activity => BkgActivityParams[:K40_hall_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:K40_hall_bulk],
+    :bins => binningDict[:SingleE],
+    :vertexPosition => "hall_bulk",
+    :amount => 1.0
+)
+
 ### bb_foil_bulk
 
 singleEbbParams = Dict(
@@ -559,6 +592,9 @@ singleEParams = Dict(
     :neutron_external => singleNeutronParams,
     :gamma_experimental_surface => singleEgamma_experimental_surface_Params,
     :gamma_hall_bulk => singleEgamma_hall_bulk_Params,
+    :Tl208_hall_bulk => singleETl208_hall_bulk_Params,
+    :Bi214_hall_bulk => singleEBi214_hall_bulk_Params,
+    :K40_hall_bulk => singleEK40_hall_bulk_Params,
     :K40_calo_8inch_scin_bulk => singleEK40_calo_8inch_scin_bulk_Params,
     :Bi214_calo_8inch_scin_bulk => singleEBi214_calo_8inch_scin_bulk_Params,
     :bb0nuScalar0_foil_bulk => singleEbb0nuScalar0Params,
