@@ -15,5 +15,5 @@ SNparams = Dict(
     "SeThalf2nu" => 9.39 * 1e19 * 365 * 24 * 3600,    # 2nu Se82 half life in [s], results from NEMO-3
     "SeThalf0nu" => 1e26 * 365 * 24 * 3600,     # 0nu Se82 half life in [s], results from NEMO-3
     "Q" => 2997.9,                               # [keV]
-    "caloMass_8inch" => 712*10.0,                    # mass of one 8 inch calo scintillator in [kg]
+    "caloMass_8inch" => 440*10.0 + 272*2.4,                    # mass of one 8 inch calo scintillator is 10kg, I also estimated 5inch to 2.4 kg (prolly too little) 
 ) 
