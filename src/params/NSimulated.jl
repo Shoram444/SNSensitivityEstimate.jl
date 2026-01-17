@@ -44,6 +44,6 @@ SimulationParams = Dict(
     :Tl208_hall_bulk => 203300000,
     :K40_hall_bulk => 854538852,
     :Bi214_hall_bulk => 245970063,
-    :K40_calo_8inch_scin_bulk => 690578149,
+    :K40_calo_8inch_scin_bulk => 1381156298,
     :Bi214_calo_8inch_scin_bulk => 10*1e7
 )
