@@ -251,6 +251,38 @@ function DataProcessND(
     )
 end
 
+function DataProcessND(
+    data::LazyTree,
+    isotopeName::String, 
+    signal::Bool, 
+    activity::Real, 
+    timeMeas::Real, 
+    nTotalSim::Real, 
+    binsTuple::NamedTuple, 
+    amount::Real,
+    varNames::Vector{String}
+    )
+    println("creating process: $isotopeName")
+
+    collected_data = collect(data)
+    varIdxs = [findfirst(x -> x == n, names(data)) for n in varNames]
+
+    T = promote_type(typeof(activity), typeof(timeMeas), typeof(nTotalSim), typeof(amount))
+    I = promote_type(Int64, typeof(varIdxs[1]))
+
+    return DataProcessND{T, Bool, typeof(binsTuple), String, I}(
+        collected_data,
+        isotopeName,
+        signal,
+        activity,
+        timeMeas,
+        nTotalSim,
+        binsTuple,
+        amount,
+        varNames,
+        varIdxs
+    )
+end
 
 function get_roi_bkg_counts(
     processes::Vector{<:DataProcessND}, 
