@@ -24,10 +24,10 @@ BkgActivityParams = Dict( #activities from Table 1 from 10.1140/epjc/s10052-018-
     :Tl208_hall_surface => 2.4 ,                  # [Bq] Value is taken from Xalbat (flux) divided twice by 500 - for tof cut and for shielding effect 
     :K40_hall_surface => 1.2 ,                  # [Bq] Value is taken from Xalbat (flux) divided twice by 500 - for tof cut and for shielding effect 
     :gamma_experimental_surface => 1 / 430,         # mock gammas for "somewhat flat" spectrum in nu0 ROI
-    :gamma_hall_bulk => 1 / 430,         # mock gammas for "somewhat flat" spectrum in nu0 ROI
-    :Tl208_hall_bulk => 2.4 / 500,         # Xalbat's 2.4 Bq --> neutrino poster, additionally divided by 500 for shielding factor
-    :K40_hall_bulk => 1.2 / 500,         # Xalbat's 1.2 Bq --> neutrino poster, additionally divided by 500 for shielding factor
-    :Bi214_hall_bulk => 0.5 / 500,         # Xalbat's 0.5 Bq --> neutrino poster, additionally divided by 500 for shielding factor
+    :gamma_hall_bulk => 1 / 430 /20,         # mock gammas for "somewhat flat" spectrum in nu0 ROI
+    :Tl208_hall_bulk => 2.4 / 500 /20 ,         # Xalbat's 2.4 Bq --> neutrino poster, additionally divided by 500 for shielding factor, plus 20 for tof cut
+    :K40_hall_bulk => 1.2 / 500 /20 ,         # Xalbat's 1.2 Bq --> neutrino poster, additionally divided by 500 for shielding factor, plus 20 for tof cut
+    :Bi214_hall_bulk => 0.5 / 500 / 20,         # Xalbat's 0.5 Bq --> neutrino poster, additionally divided by 500 for shielding factor, plus 20 for tof cut
     :K40_calo_8inch_scin_bulk => 2.2/1000,         # [Bq/kg] from calo Federic measurements internal, docdb 3174-v2
     :Bi214_calo_8inch_scin_bulk => 0.3/1000,         # [Bq/kg] from calo Federic measurements internal, docdb 3174-v2
     )

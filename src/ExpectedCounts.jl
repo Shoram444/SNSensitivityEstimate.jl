@@ -107,7 +107,7 @@ function estimated_counts_hist1D(dataDf, activity, amount, time, binning, nTotal
     
     h1d.bincounts .= h1d.bincounts .*(
         activity * time * amount * totEff    
-    ) # multiply each bin by activity * time * amount * totalEfficiency
+    ) # multiply each bin by activity * time * amount * totalEfficiency 
 
     return h1d
 end
