@@ -413,3 +413,32 @@ function set_amount!(process::DataProcessND, amount::Real)
     process.amount = amount
     return process
 end
+
+
+function make_stepRange(process::DataProcessND)
+    stepRange = Tuple{Int64, Int64}[]
+    for k in keys(process.bins) 
+        push!(stepRange, (process.bins[k][1], process.bins[k][2]))
+        push!(stepRange, (process.bins[k][1], process.bins[k][2]))
+    end
+    return stepRange
+end
+
+
+function get_best_ROI_ND(res, process)
+    best = best_candidate(res)
+    best_roi = NamedTuple(
+        k => (best[i], best[i+1]) 
+        for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
+    )
+    return best_roi
+end
+
+function get_best_ROI_ND(res::Vector{<:Real}, process)
+    best = res
+    best_roi = NamedTuple(
+        k => (best[i], best[i+1]) 
+        for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
+    )
+    return best_roi
+end
