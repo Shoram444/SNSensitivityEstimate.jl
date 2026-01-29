@@ -6,9 +6,9 @@
   - `cd PATH/TO/EXAMPLES/` (must be in the path where `Project.toml` and `Manifest.toml` files are located)
   - Open julia REPL by typing `julia` in bash
   - When in REPL type `import Pkg; Pkg.activate("."); Pkg.instantiate()` which will activate the local environment and automatically load the required dependencies 
-  - To run any particular script `cd` to where the files are located, i.e. `cd examples` and run in bash `julia --project="PATH/TO/Project.toml" 
+  - To run any particular script `cd` to where the files are located, i.e. `cd examples` and run in bash `julia --project="PATH/TO/Project.toml" ex1D.jl` 
   - That's it
-  - (RECOMMENDED WORKFLOW, but not needed)
+  - (RECOMMENDED WORKFLOW, but not needed) While it is possible to use julia in "scripting fashion" (by running .jl scripts in bash) it is not the best approach. You should really consider using the workflow of VSCode + julia extension and work in REPL itself with one session. 
 
 # Use of the examples
 
