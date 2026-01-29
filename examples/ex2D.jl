@@ -17,7 +17,6 @@ using Distributions
 using StatsPlots
 using FHist
 
-include("/home/maros/.julia/dev/SNSensitivityEstimate/src/params/SNparams.jl")
 
 vars = [
     "phi", 

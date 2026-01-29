@@ -413,3 +413,64 @@ function set_amount!(process::DataProcessND, amount::Real)
     process.amount = amount
     return process
 end
+
+
+function make_stepRange(process::DataProcessND)
+    stepRange = Tuple{Int64, Int64}[]
+    for k in keys(process.bins) 
+        push!(stepRange, (process.bins[k][1], process.bins[k][2]))
+        push!(stepRange, (process.bins[k][1], process.bins[k][2]))
+    end
+    return stepRange
+end
+
+
+function get_best_ROI_ND(res, process)
+    best = best_candidate(res)
+    best_roi = NamedTuple(
+        k => (best[i], best[i+1]) 
+        for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
+    )
+    return best_roi
+end
+
+function get_best_ROI_ND(res::Vector{<:Real}, process)
+    best = res
+    best_roi = NamedTuple(
+        k => (best[i], best[i+1]) 
+        for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
+    )
+    return best_roi
+end
+
+# Obtain the background counts histogram for a given ROI and process and variable 
+"""
+get_roi_bkg_counts_hist(
+    p::DataProcessND, 
+    roi::NamedTuple,
+    bins,
+    var
+) -> Hist1D
+ 
+Returns a histogram of background counts for the specified ROI and variable.
+    Inputs:
+    - `p::DataProcessND`: The data process containing the data and parameters.
+    - `roi::NamedTuple`: The region of interest defined as a NamedTuple.
+    - `bins`: The bin edges for the histogram.
+    - `var`: The variable name for which the histogram is computed.
+"""
+function get_roi_bkg_counts_hist(
+    p::DataProcessND, 
+    roi::NamedTuple,
+    bins,
+    var
+)
+    d = getproperty.(p.data, var)
+    bkg_hist = normalize(Hist1D(d;binedges = bins); width = false)
+
+    ε = get_roi_effciencyND(p, roi).eff
+    # @show p.isotopeName, ε
+
+    bkg_hist.bincounts .= bkg_hist.bincounts .* p.amount * ε * p.activity * p.timeMeas 
+    return bkg_hist
+end

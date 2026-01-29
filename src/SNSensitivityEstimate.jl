@@ -102,7 +102,10 @@ include("NDimDataProcess.jl")
         get_roi_effciencyND,
         get_roi_bkg_counts,
         get_s_to_b,
-        get_sensitivityND
+        get_sensitivityND,
+        make_stepRange,
+        get_best_ROI_ND,
+        get_roi_bkg_counts_hist
 
 include("PlotsRecipes.jl")
 

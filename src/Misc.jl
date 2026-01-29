@@ -1,3 +1,15 @@
+import Base.print
+function print(best_roi::SensitivityEstimateND)
+    println("tHalf: $(best_roi.tHalf)")
+    println("signalEff: $(best_roi.signalEff)")
+    println("bkg count: $(best_roi.bkgCounts)")
+    println("best ROI:")
+    for (k,v) in pairs(best_roi.roi)
+        println("  $k : $(v)")
+    end
+end
+
+
 function generate_raw_plots(inDf::DataFrame, isotope; kwargs...)
     phi, e1, e2 = inDf[!, :phi], inDf[!, :reconstructedEnergy1], inDf[!, :reconstructedEnergy2]
 
