@@ -6,6 +6,13 @@
   - `cd PATH/TO/EXAMPLES/` (must be in the path where `Project.toml` and `Manifest.toml` files are located)
   - Open julia REPL by typing `julia` in bash
   - When in REPL type `import Pkg; Pkg.activate("."); Pkg.instantiate()` which will activate the local environment and automatically load the required dependencies 
+  - To run any particular script `cd` to where the files are located, i.e. `cd examples` and run in bash `julia --project="PATH/TO/Project.toml" 
   - That's it
+  - (RECOMMENDED WORKFLOW, but not needed)
 
- 
+# Use of the examples
+
+## ex1D.jl
+This is a very simple example of calculating the 1D sensitivity ROI for a fake signal (gaussian) and fake backrgound (exponential) 
+It uses only the sumE channel to find the simple 1D roi and calculates the sensitivity. 
+To use the 

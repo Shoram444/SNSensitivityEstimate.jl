@@ -477,3 +477,15 @@ function get_roi_bkg_counts_hist(
 =======
 >>>>>>> e7ad7c50bb37c3be483c917a1eeefefb0f21b2d2
 end
+
+
+import Base.print
+function print(best_roi::SensitivityEstimateND)
+    println("tHalf: $(best_roi.tHalf)")
+    println("signalEff: $(best_roi.signalEff)")
+    println("bkg count: $(best_roi.bkgCounts)")
+    println("best ROI:")
+    for (k,v) in pairs(best_roi.roi)
+        println("  $k : $(v)")
+    end
+end
