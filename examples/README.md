@@ -15,4 +15,14 @@
 ## ex1D.jl
 This is a very simple example of calculating the 1D sensitivity ROI for a fake signal (gaussian) and fake backrgound (exponential) 
 It uses only the sumE channel to find the simple 1D roi and calculates the sensitivity. 
-To use the 
+See the comments inside the script for more info.
+
+To run `julia --project="PATH/TO/SCRIPT_AND_TOML/" ex1D.jl`
+
+## ex2D.jl 
+A basic example of 2D optimization with basic data and histogram outputs. 
+
+## ex3_ND.jl
+More advanced example of ND optimization with many comments, use this to learn. Play around with the input processes, variables, ranges, optimizations to get the feel for things. 
+
+To run `julia --project="PATH/TO/SCRIPT_AND_TOML/" ex3_ND.jl`

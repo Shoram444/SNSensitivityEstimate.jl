@@ -28,7 +28,7 @@ bins = (
     sumE = (300, 3500),
 )
 
-processes = load_ndim_processes("/home/maros/.julia/dev/SNSensitivityEstimate/exampels/data", bins, vars)
+processes = load_ndim_processes("examples/data", bins, vars)
 
 signal = get_process("bb0nu_foil_bulk", processes)[1]
 
@@ -53,17 +53,6 @@ x0 = float.([0,100, 2500, 3000])
 prob(x0)
 
 
-
-function make_stepRange(process)
-    stepRange = Tuple{Int64, Int64}[]
-    for k in keys(process.bins) 
-        push!(stepRange, (process.bins[k][1], process.bins[k][2]))
-        push!(stepRange, (process.bins[k][1], process.bins[k][2]))
-    end
-    return stepRange
-end
-
-
 searchRange = make_stepRange(signal)
 
 
@@ -85,14 +74,6 @@ result = Metaheuristics.optimize(prob, bounds, SA(;options))
 
 @show res = minimizer(result)
 
-function get_best_ROI_ND(res::Vector{<:Real}, process)
-    best = res
-    best_roi = NamedTuple(
-        k => (best[i], best[i+1]) 
-        for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
-    )
-    return best_roi
-end
 
 best = get_best_ROI_ND(res, signal)
 
