@@ -441,6 +441,7 @@ function get_best_ROI_ND(res::Vector{<:Real}, process)
         for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
     )
     return best_roi
+<<<<<<< HEAD
 end
 
 # Obtain the background counts histogram for a given ROI and process and variable 
@@ -473,4 +474,6 @@ function get_roi_bkg_counts_hist(
 
     bkg_hist.bincounts .= bkg_hist.bincounts .* p.amount * ε * p.activity * p.timeMeas 
     return bkg_hist
+=======
+>>>>>>> e7ad7c50bb37c3be483c917a1eeefefb0f21b2d2
 end
