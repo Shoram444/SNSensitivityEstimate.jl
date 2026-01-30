@@ -14,9 +14,13 @@ using
     CairoMakie,
     BAT,
     DensityInterface,
-    SpecialFunctions
+    SpecialFunctions,
+    CSV
+
 
 # # Define main module abstract type
+
+const tbl_90 = CSV.read(srcdir("MPFC_table90.csv"), DataFrame)
 
 
 include("Misc.jl")
