@@ -321,10 +321,12 @@ function f_uniform_bkg(pars::NamedTuple{(:As, :Ab)}, x::Real, s_hist::Hist1D, b_
 end
 
 
-function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, f2, signal, prior; ROI_a = ROI_a, ROI_b = ROI_b, nsteps = 10^4, nchains = 4)
+function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal_hist_normed, prior; ROI_a = ROI_a, ROI_b = ROI_b, nsteps = 10^4, nchains = 4)
     sample_hists = [get_pseudo_spectrum(b) for b in bkg_hist] 
     data_hist = merge(sample_hists...)
 
+    bkg_hist_normed = [normalize(h, width = true) for h in bkg_hist]
+    signal_hist_normed = normalize(signal_hist_normed, width = true)
     # my_likelihood = make_hist_likelihood_uniform(data_hist, f2)
     my_likelihood = make_hist_likelihood_uniform(
         data_hist,
