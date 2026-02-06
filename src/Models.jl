@@ -171,35 +171,118 @@ end
 #     end )
 # end
 
-function make_hist_likelihood_uniform(h::Hist1D, f::Function)
+@inline function my_pdf_idx(h::Hist1D, i::Int)
+    # direct bin access (NO lookup)
+    val = bincounts(h)[i]
+    return val > 0 ? val : eps(Float64)
+end
+
+function f_uniform_bkg_idx(
+    pars::NamedTuple{(:As,:Ab)},
+    bin_index::Int,
+    s_hist::Hist1D,
+    b_hists::Vector{<:Hist1D}
+)
+
+    As = pars.As
+    Ab = pars.Ab
+
+    total_rate = As + sum(Ab)
+    inv_total = inv(total_rate)
+
+    # signal contribution
+    val = As * inv_total * my_pdf_idx(s_hist, bin_index)
+
+    # background contributions
+    @inbounds for j in eachindex(b_hists)
+        val += Ab[j] * inv_total *
+               my_pdf_idx(b_hists[j], bin_index)
+    end
+
+    return val
+end
+
+# this one's good
+# function make_hist_likelihood_uniform(h::Hist1D, f::Function)
+
+#     counts = bincounts(h)
+#     n = sum(counts)
+#     binning = binedges(h)
+
+#     logfuncdensity(function(p)
+
+#         ll_value = eps(Float64)
+
+#         for i in eachindex(counts)
+
+#             bin_left = binning[i]
+#             bin_right = binning[i+1]
+#             bin_width = bin_right - bin_left
+#             bin_center = (bin_right + bin_left)/2
+
+#             observed_counts = counts[i]
+
+#             expected_counts = max(bin_width * f(p, bin_center) * n,
+#                                   eps(Float64))
+
+#             ll_value += log_pdf_poisson(expected_counts,
+#                                         observed_counts)
+#         end
+
+#         ll_value
+#     end)
+# end
+
+function make_hist_likelihood_uniform(
+    h::Hist1D,
+    s_hist::Hist1D,
+    b_hists::Vector{<:Hist1D}
+)
 
     counts = bincounts(h)
-    n = sum(counts)
     binning = binedges(h)
+    n = sum(counts)
 
     logfuncdensity(function(p)
 
-        ll_value = eps(Float64)
+        ll_value = 0.0
 
-        for i in eachindex(counts)
-
-            bin_left = binning[i]
-            bin_right = binning[i+1]
-            bin_width = bin_right - bin_left
-            bin_center = (bin_right + bin_left)/2
+        @inbounds for i in eachindex(counts)
 
             observed_counts = counts[i]
 
-            expected_counts = max(bin_width * f(p, bin_center) * n,
-                                  eps(Float64))
+            # bin geometry
+            bin_left = binning[i]
+            bin_right = binning[i+1]
+            bin_width = bin_right - bin_left
 
-            ll_value += log_pdf_poisson(expected_counts,
-                                        observed_counts)
+            # model prediction (NO lookup!)
+            model_val = f_uniform_bkg_idx(
+                p,
+                i,
+                s_hist,
+                b_hists
+            )
+
+            expected_counts = max(
+                bin_width * model_val * n,
+                eps(Float64)
+            )
+
+            lp = log_pdf_poisson(
+                expected_counts,
+                observed_counts
+            )
+
+            lp == -Inf && continue
+
+            ll_value += lp
         end
 
-        ll_value
+        return ll_value
     end)
 end
+
 
 function f_dirichlet(pars::Vector{Float64}, x::Real, s_hist::Hist1D, b_hists::Vector{<:Hist1D})
     if length(pars) != length(b_hists) + 1
@@ -253,6 +336,31 @@ function f_uniform_bkg(pars::NamedTuple{(:As,:Ab)}, x::Real,
 
     @inbounds for i in eachindex(b_hists)
         val += Ab[i]*inv_total * my_pdf(b_hists[i], x)
+    end
+
+    return val
+end
+
+function f_uniform_bkg_idx(
+    pars::NamedTuple{(:As,:Ab)},
+    bin_index::Int,
+    s_hist::Hist1D,
+    b_hists::Vector{<:Hist1D}
+)
+
+    As = pars.As
+    Ab = pars.Ab
+
+    total_rate = As + sum(Ab)
+    inv_total = inv(total_rate)
+
+    # signal contribution
+    val = As * inv_total * my_pdf_idx(s_hist, bin_index)
+
+    # background contributions
+    @inbounds for j in eachindex(b_hists)
+        val += Ab[j] * inv_total *
+               my_pdf_idx(b_hists[j], bin_index)
     end
 
     return val
