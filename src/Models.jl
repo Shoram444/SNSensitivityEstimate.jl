@@ -325,7 +325,12 @@ function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, f2, signal, prior; R
     sample_hists = [get_pseudo_spectrum(b) for b in bkg_hist] 
     data_hist = merge(sample_hists...)
 
-    my_likelihood = make_hist_likelihood_uniform(data_hist, f2)
+    # my_likelihood = make_hist_likelihood_uniform(data_hist, f2)
+    my_likelihood = make_hist_likelihood_uniform(
+        data_hist,
+        signal_hist_normed,
+        bkg_hist_normed
+    )
     
     burnin = MCMCMultiCycleBurnin(max_ncycles = 50, nsteps_final=1000)
     mcmcalgo = MetropolisHastings(weighting = RepetitionWeighting(), tuning = AdaptiveMHTuning())
