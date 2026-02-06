@@ -135,42 +135,6 @@ function make_hist_likelihood_dirichlet(h::Hist1D, f::Function)
     end )
 end
 
-# function make_hist_likelihood_uniform(h::Hist1D, f::Function)
-#     logfuncdensity(function(p)
-#         # Histogram counts for each bin as an array:
-#         counts = bincounts(h)
-#         n = sum(counts)
-#         # Histogram binning, has length (length(counts) + 1):
-#         binning = binedges(h)
-
-#         # sum log-likelihood value over bins:
-#         ll_value::Float64 = eps(Float64)
-        
-#         for i in eachindex(counts)
-
-#             # Get information about current bin:
-#             bin_left, bin_right = binning[i], binning[i+1]
-#             bin_width = bin_right - bin_left
-#             bin_center = (bin_right + bin_left) / 2
-
-#             observed_counts = counts[i]
-
-#             # Simple mid-point rule integration of fit function `f` over bin:
-#             expected_counts = max(bin_width * f(p, bin_center) * n, eps(Float64))
-
-#             # expected_counts = bin_width * f(p, bin_center) * n
-#             # expected_counts == 0.0 && continue
-
-#             log_pdf_poisson(expected_counts, observed_counts) == -Inf && continue
-#             # Add log of Poisson probability for bin:
-#             ll_value += log_pdf_poisson(expected_counts, observed_counts)
-            
-#         end
-#         ll_value
-#         return ll_value
-#     end )
-# end
-
 @inline function my_pdf_idx(h::Hist1D, i::Int)
     # direct bin access (NO lookup)
     val = bincounts(h)[i]
@@ -202,36 +166,6 @@ function f_uniform_bkg_idx(
     return val
 end
 
-# this one's good
-# function make_hist_likelihood_uniform(h::Hist1D, f::Function)
-
-#     counts = bincounts(h)
-#     n = sum(counts)
-#     binning = binedges(h)
-
-#     logfuncdensity(function(p)
-
-#         ll_value = eps(Float64)
-
-#         for i in eachindex(counts)
-
-#             bin_left = binning[i]
-#             bin_right = binning[i+1]
-#             bin_width = bin_right - bin_left
-#             bin_center = (bin_right + bin_left)/2
-
-#             observed_counts = counts[i]
-
-#             expected_counts = max(bin_width * f(p, bin_center) * n,
-#                                   eps(Float64))
-
-#             ll_value += log_pdf_poisson(expected_counts,
-#                                         observed_counts)
-#         end
-
-#         ll_value
-#     end)
-# end
 
 function make_hist_likelihood_uniform(
     h::Hist1D,
