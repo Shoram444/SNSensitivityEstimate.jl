@@ -326,7 +326,8 @@ function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal, prior; ROI_a
     data_hist = merge(sample_hists...)
 
     bkg_hist_normed = [normalize(h, width = true) for h in bkg_hist]
-    signal_hist_normed = normalize(signal, width = true)
+    signal_hist_normed = normalize(get_bkg_counts_1D(signal), width = true)
+
     # my_likelihood = make_hist_likelihood_uniform(data_hist, f2)
     my_likelihood = make_hist_likelihood_uniform(
         data_hist,
