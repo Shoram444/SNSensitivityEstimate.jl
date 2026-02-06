@@ -321,7 +321,11 @@ function f_uniform_bkg(pars::NamedTuple{(:As, :Ab)}, x::Real, s_hist::Hist1D, b_
 end
 
 
+<<<<<<< HEAD
 function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal_hist_normed, prior; ROI_a = ROI_a, ROI_b = ROI_b, nsteps = 10^4, nchains = 4)
+=======
+function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal, prior; ROI_a = ROI_a, ROI_b = ROI_b, nsteps = 10^4, nchains = 4)
+>>>>>>> 8f7c24cda2bff71245be35d6074f61fa7f9eeaf6
     sample_hists = [get_pseudo_spectrum(b) for b in bkg_hist] 
     data_hist = merge(sample_hists...)
 
