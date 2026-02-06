@@ -242,10 +242,10 @@ function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, f2, signal, prior; R
     nDataPoints = integral(data_hist)
     muS = [par[1] for par in binned_unshaped_samples.v]
     exp_mu_signal_90 = quantile( muS,0.9) * nDataPoints
-    Na = 6.02214e23
-    m = 6.067
-    t = 2.88
-    W = 0.08192
+    Na = SNparams["Nₐ"]
+    m = SNparams["foilMass"] * SNparams["a"]
+    t = SNparams["tYear"]
+    W = SNparams["W"]
     eff = lookup(signal, ROI_a, ROI_b)
     t12 = log(2) * (Na * m * t * eff / W) / exp_mu_signal_90
     return t12
