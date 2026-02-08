@@ -52,6 +52,8 @@ SigActivityParams = Dict(
     :bb0nuScalar0_foil_bulk =>   halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"]), # mock value
     :bb0nuScalar1_foil_bulk =>   halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"]), # mock value
     :bb0nuScalar2_foil_bulk =>   halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"]), # mock value
+    :Nnubb500keV_foil_bulk =>   halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"]), # mock value
+    :Nnubb1500keV_foil_bulk =>   halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"]), # mock value
 )
 
 

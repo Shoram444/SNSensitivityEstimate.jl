@@ -592,5 +592,8 @@ phiParams = Dict(
     :Bi214_calo_8inch_scin_bulk => phiBi214_calo_8inch_scin_bulk,
     :bb0nuScalar0_foil_bulk => phibb0nuScalar0Params,
     :bb0nuScalar1_foil_bulk => phibb0nuScalar1Params,
-    :bb0nuScalar2_foil_bulk => phibb0nuScalar2Params
+    :bb0nuScalar2_foil_bulk => phibb0nuScalar2Params,
+    :Nnubb1500keV_foil_bulk => phibb0nuScalar2Params,
+    :Nnubb500keV_foil_bulk => phibb0nuScalar2Params,
+
 )

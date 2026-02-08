@@ -599,5 +599,7 @@ singleEParams = Dict(
     :Bi214_calo_8inch_scin_bulk => singleEBi214_calo_8inch_scin_bulk_Params,
     :bb0nuScalar0_foil_bulk => singleEbb0nuScalar0Params,
     :bb0nuScalar1_foil_bulk => singleEbb0nuScalar1Params,
-    :bb0nuScalar2_foil_bulk => singleEbb0nuScalar2Params
+    :bb0nuScalar2_foil_bulk => singleEbb0nuScalar2Params,
+    :Nnubb500keV_foil_bulk => singleEbb0nuScalar2Params,
+    :Nnubb1500keV_foil_bulk => singleEbb0nuScalar2Params,
 )
