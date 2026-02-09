@@ -503,6 +503,30 @@ phibb0nuScalar2Params = Dict(
     :amount => SNparams["foilMass"]
 )
 
+### Nnubb1500keV_foil_bulk
+phibb0nuNnubb1500keVParams = Dict(
+    :isotopeName => "Nnubb1500keV_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:Nnubb1500keV_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Nnubb1500keV_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### Nnubb500keV_foil_bulk
+phibb0nuNnubb500keVParams = Dict(
+    :isotopeName => "Nnubb500keV_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:Nnubb500keV_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Nnubb500keV_foil_bulk],
+    :bins => binningDict[:Phi],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
 ### bb0nuRHl_foil_bulk
 
 phibb0nuRHlParams = Dict(
@@ -593,7 +617,7 @@ phiParams = Dict(
     :bb0nuScalar0_foil_bulk => phibb0nuScalar0Params,
     :bb0nuScalar1_foil_bulk => phibb0nuScalar1Params,
     :bb0nuScalar2_foil_bulk => phibb0nuScalar2Params,
-    :Nnubb1500keV_foil_bulk => phibb0nuScalar2Params,
-    :Nnubb500keV_foil_bulk => phibb0nuScalar2Params,
+    :Nnubb1500keV_foil_bulk => phibb0nuNnubb1500keVParams,
+    :Nnubb500keV_foil_bulk => phibb0nuNnubb500keVParams,
 
 )

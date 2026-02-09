@@ -495,6 +495,30 @@ sumEbb0nuScalar2Params = Dict(
     :amount => SNparams["foilMass"]
 )
 
+### Nnubb500keV
+sumENnubb500keVParams = Dict(
+    :isotopeName => "Nnubb500keV_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:Nnubb500keV_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Nnubb500keV_foil_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
+### Nnubb1500keV
+sumENnubb1500keVParams = Dict(
+    :isotopeName => "Nnubb1500keV_foil_bulk", 
+    :signal => :true, 
+    :activity => SigActivityParams[:Nnubb1500keV_foil_bulk], 
+    :timeMeas => SNparams["t"], 
+    :nTotalSim => SimulationParams[:Nnubb1500keV_foil_bulk],
+    :bins => binningDict[:SumE],
+    :vertexPosition => "foil_bulk",
+    :amount => SNparams["foilMass"]
+)
+
 ### 0nubbRHl
 sumEbb0nuRHlParams = Dict(
     :isotopeName => "bb0nuRHl_foil_bulk", 
@@ -586,7 +610,7 @@ sumEParams = Dict(
     :bb0nuScalar0_foil_bulk => sumEbb0nuScalar0Params,
     :bb0nuScalar1_foil_bulk => sumEbb0nuScalar1Params,
     :bb0nuScalar2_foil_bulk => sumEbb0nuScalar2Params,
-    :Nnubb500keV_foil_bulk => sumEbb0nuScalar2Params,
-    :Nnubb1500keV_foil_bulk => sumEbb0nuScalar2Params,
+    :Nnubb500keV_foil_bulk => sumENnubb500keVParams,
+    :Nnubb1500keV_foil_bulk => sumENnubb1500keVParams,
 
 )
