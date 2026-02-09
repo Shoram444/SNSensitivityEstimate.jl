@@ -141,30 +141,30 @@ end
     return val > 0 ? val : eps(Float64)
 end
 
-function f_uniform_bkg_idx(
-    pars::NamedTuple{(:As,:Ab)},
-    bin_index::Int,
-    s_hist::Hist1D,
-    b_hists::Vector{<:Hist1D}
-)
+# function f_uniform_bkg_idx(
+#     pars::NamedTuple{(:As,:Ab)},
+#     bin_index::Int,
+#     s_hist::Hist1D,
+#     b_hists::Vector{<:Hist1D}
+# )
 
-    As = pars.As
-    Ab = pars.Ab
+#     As = pars.As
+#     Ab = pars.Ab
 
-    total_rate = As + sum(Ab)
-    inv_total = inv(total_rate)
+#     total_rate = As + sum(Ab)
+#     inv_total = inv(total_rate)
 
-    # signal contribution
-    val = As * inv_total * my_pdf_idx(s_hist, bin_index)
+#     # signal contribution
+#     val = As * inv_total * my_pdf_idx(s_hist, bin_index)
 
-    # background contributions
-    @inbounds for j in eachindex(b_hists)
-        val += Ab[j] * inv_total *
-               my_pdf_idx(b_hists[j], bin_index)
-    end
+#     # background contributions
+#     @inbounds for j in eachindex(b_hists)
+#         val += Ab[j] * inv_total *
+#                my_pdf_idx(b_hists[j], bin_index)
+#     end
 
-    return val
-end
+#     return val
+# end
 
 
 function make_hist_likelihood_uniform(
