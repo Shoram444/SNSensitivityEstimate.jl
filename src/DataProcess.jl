@@ -67,36 +67,9 @@ end
 
 
 
-############################################################
-########### setters!
-############################################################
-
-
-function set_activity!(process::DataProcess, activity::Real)
-    process.activity = activity
-    return process
-end
-
-function set_timeMeas!(process::DataProcess, timeMeas::Real)
-    process.timeMeas = timeMeas
-    return process
-end
-
 function set_nTotalSim!(process::DataProcess, nTotalSim::Real)
     process.nTotalSim = nTotalSim
     process.efficiency = get_efficiency(process.dataVector, process.bins, nTotalSim)
-    return process
-end
-
-function set_bins!(process::DataProcess, bins)
-    process.bins = bins
-    process.efficiency = get_efficiency(process.dataVector, bins, process.nTotalSim::Real)
-    return process
-end
-
-
-function set_amount!(process::DataProcess, amount::Real)
-    process.amount = amount
     return process
 end
 

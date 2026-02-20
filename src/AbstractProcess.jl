@@ -13,6 +13,38 @@ function get_process(isotopeName::String, processesVector::Vector{<:AbstractProc
     return filter(x -> x.isotopeName == isotopeName, processesVector)
 end
 
+############################################################
+########### setters!
+############################################################
+
+
+function set_activity!(process::AbstractProcess, activity::Real)
+    process.activity = activity
+    return process
+end
+
+function set_timeMeas!(process::AbstractProcess, timeMeas::Real)
+    process.timeMeas = timeMeas
+    return process
+end
+
+function set_nTotalSim!(process::AbstractProcess, nTotalSim::Real)
+    process.nTotalSim = nTotalSim
+    return process
+end
+
+function set_bins!(process::AbstractProcess, bins)
+    process.bins = bins
+    process.efficiency = get_efficiency(process.dataVector, bins, process.nTotalSim::Real)
+    return process
+end
+
+
+function set_amount!(process::AbstractProcess, amount::Real)
+    process.amount = amount
+    return process
+end
+
 function set_signal!(process::AbstractProcess, signal::Bool)
     process.signal = signal
     return process
