@@ -318,7 +318,7 @@ sumEbbParams = Dict(
     :nTotalSim => SimulationParams[:bb_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### Xi31
@@ -330,7 +330,7 @@ sumEXiParams = Dict(
     :nTotalSim => SimulationParams[:Xi037_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### RH037
@@ -342,7 +342,7 @@ sumERH037Params = Dict(
     :nTotalSim => SimulationParams[:RH037_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### RH020
@@ -354,7 +354,7 @@ sumERH020Params = Dict(
     :nTotalSim => SimulationParams[:RH020_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 ### RH025
 sumERH025Params = Dict(
@@ -365,7 +365,7 @@ sumERH025Params = Dict(
     :nTotalSim => SimulationParams[:RH025_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 ### RH030
 sumERH030Params = Dict(
@@ -376,7 +376,7 @@ sumERH030Params = Dict(
     :nTotalSim => SimulationParams[:RH030_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 ### RH035
 sumERH035Params = Dict(
@@ -387,7 +387,7 @@ sumERH035Params = Dict(
     :nTotalSim => SimulationParams[:RH035_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 ### RH040
 sumERH040Params = Dict(
@@ -398,7 +398,7 @@ sumERH040Params = Dict(
     :nTotalSim => SimulationParams[:RH040_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 ### RH045
 sumERH045Params = Dict(
@@ -409,7 +409,7 @@ sumERH045Params = Dict(
     :nTotalSim => SimulationParams[:RH045_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 ### RH050
 sumERH050Params = Dict(
@@ -420,7 +420,7 @@ sumERH050Params = Dict(
     :nTotalSim => SimulationParams[:RH050_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubb
@@ -432,7 +432,7 @@ sumEbb0nuParams = Dict(
     :nTotalSim => SimulationParams[:bb0nu_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubbM1
@@ -444,7 +444,7 @@ sumEbb0nuM1Params = Dict(
     :nTotalSim => SimulationParams[:bb0nuM1_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubbM2
@@ -456,7 +456,7 @@ sumEbb0nuM2Params = Dict(
     :nTotalSim => SimulationParams[:bb0nuM2_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubbScalar0
@@ -468,7 +468,7 @@ sumEbb0nuScalar0Params = Dict(
     :nTotalSim => SimulationParams[:bb0nuScalar0_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubbScalar1
@@ -480,7 +480,7 @@ sumEbb0nuScalar1Params = Dict(
     :nTotalSim => SimulationParams[:bb0nuScalar1_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubbScalar2
@@ -492,7 +492,7 @@ sumEbb0nuScalar2Params = Dict(
     :nTotalSim => SimulationParams[:bb0nuScalar2_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### Nnubb500keV
@@ -504,7 +504,7 @@ sumENnubb500keVParams = Dict(
     :nTotalSim => SimulationParams[:Nnubb500keV_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### Nnubb1500keV
@@ -516,7 +516,7 @@ sumENnubb1500keVParams = Dict(
     :nTotalSim => SimulationParams[:Nnubb1500keV_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### 0nubbRHl
@@ -528,7 +528,7 @@ sumEbb0nuRHlParams = Dict(
     :nTotalSim => SimulationParams[:bb0nuRHl_foil_bulk],
     :bins => binningDict[:SumE],
     :vertexPosition => "foil_bulk",
-    :amount => SNparams["foilMass"]
+    :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
 ### neutron
