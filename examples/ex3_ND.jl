@@ -5,6 +5,7 @@
 ##
 #############################################
 #############################################
+import Pkg; Pkg.activate(".")
 using SNSensitivityEstimate, UnROOT, Metaheuristics
 
 const α= 1.64485362695147 # 90% C.L. constant
@@ -14,16 +15,16 @@ const α= 1.64485362695147 # 90% C.L. constant
 #############################################
 
 # here of course put your own path, maybe absolute rather than relative
-signal_path = "data/bb0nu_foil_bulk.root"
+signal_path = "/Users/maros.petro/Work/Phd/SNSensitivityEstimate/data/sims/final_phd/fal5_12perc_Boff_Cimrman_J41/bb0nu_foil_bulk.root"
 tree_name = "tree"
 f1 = ROOTFile(signal_path) 
 d1 = LazyTree(f1, tree_name, keys(f1[tree_name])) 
 
-bkg1_path = "data/bb_foil_bulk.root"
+bkg1_path = "/Users/maros.petro/Work/Phd/SNSensitivityEstimate/data/sims/final_phd/fal5_12perc_Boff_Cimrman_J41/bb_foil_bulk.root"
 f2 = ROOTFile(bkg1_path)
 d2 = LazyTree(f2, tree_name, keys(f2[tree_name]))
 
-bkg2_path = "data/Bi214_wire_surface.root"
+bkg2_path = "/Users/maros.petro/Work/Phd/SNSensitivityEstimate/data/sims/final_phd/fal5_12perc_Boff_Cimrman_J41/Bi214_wire_surface.root"
 f3 = ROOTFile(bkg2_path)
 d3 = LazyTree(f3, tree_name, keys(f3[tree_name]))
 
@@ -33,20 +34,19 @@ d3 = LazyTree(f3, tree_name, keys(f3[tree_name]))
 ## INITIATE VARIABLES TO READ AND RANGES
 #############################################
 vars = [
-    "phi", 
+    # "phi", 
     "sumE", 
     # Here you should add at least dy, dz, deltaCalo
 ]
 
 var_range = (
-    phi = (0,180),
+    # phi = (0,180),
     sumE = (0, 3500),
 )
 
 ##############################################
 ## INITIATE PROCESSES
 ##############################################
-
 
 signal_process = DataProcessND(
     d1, # data
@@ -55,7 +55,7 @@ signal_process = DataProcessND(
     1.0, # acitivity 
     1.0 * 365 * 24 * 3600, # time in seconds
     1e7, # nsimulated events
-    bins, # bins 
+    var_range, # bins 
     6.11, # amount
     vars # variable names
 )
@@ -67,7 +67,7 @@ background_process1 = DataProcessND(
     100/1e3,
     1.0 * 365 * 24 * 3600,
     1e7,
-    bins,
+    var_range,
     6.11,
     vars
 )
@@ -79,7 +79,7 @@ background_process2 = DataProcessND(
     150/2e6, # 150 uBq/m3
     1.0 * 365 * 24 * 3600, # 1 year of measurement
     1e8, # 1e8 simulated events 
-    bins,
+    var_range,
     15, # 15 m3 of tracking volume
     vars
 )
@@ -98,7 +98,7 @@ all_processes = [
 
 # Test simple roi, you can play around by hand to get the feeling
 my_roi = (
-    phi = (0, 140),
+    # phi = (0, 140),
     sumE = (2000, 3100),
 )
 
@@ -106,6 +106,7 @@ my_roi = (
 # table is more precise but takes longer to calculate, 
 # formula is fine for quick tests
 my_sensitivity = get_sensitivityND(SNparams, α, all_processes, my_roi; approximate="table") 
+
 
 # print your result, it shows the sensitivity, efficiency, background and roi
 print(my_sensitivity) 
