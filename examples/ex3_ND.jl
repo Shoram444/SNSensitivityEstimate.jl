@@ -15,16 +15,16 @@ const α= 1.64485362695147 # 90% C.L. constant
 #############################################
 
 # here of course put your own path, maybe absolute rather than relative
-signal_path = "/Users/maros.petro/Work/Phd/SNSensitivityEstimate/data/sims/final_phd/fal5_12perc_Boff_Cimrman_J41/bb0nu_foil_bulk.root"
+signal_path = "data/bb0nu_foil_bulk.root"
 tree_name = "tree"
 f1 = ROOTFile(signal_path) 
 d1 = LazyTree(f1, tree_name, keys(f1[tree_name])) 
 
-bkg1_path = "/Users/maros.petro/Work/Phd/SNSensitivityEstimate/data/sims/final_phd/fal5_12perc_Boff_Cimrman_J41/bb_foil_bulk.root"
+bkg1_path = "data/bb_foil_bulk.root"
 f2 = ROOTFile(bkg1_path)
 d2 = LazyTree(f2, tree_name, keys(f2[tree_name]))
 
-bkg2_path = "/Users/maros.petro/Work/Phd/SNSensitivityEstimate/data/sims/final_phd/fal5_12perc_Boff_Cimrman_J41/Bi214_wire_surface.root"
+bkg2_path = "data/Bi214_wire_surface.root"
 f3 = ROOTFile(bkg2_path)
 d3 = LazyTree(f3, tree_name, keys(f3[tree_name]))
 
