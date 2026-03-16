@@ -2865,11 +2865,7 @@ version = "1.52.0+1"
 
 [[deps.oneTBB_jll]]
 deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
-<<<<<<< HEAD
 git-tree-sha1 = "d5a767a3bb77135a99e433afe0eb14cd7f6914c3"
-=======
-git-tree-sha1 = "1350188a69a6e46f799d3945beef36435ed7262f"
->>>>>>> de2b054 (updated 2nu half-life)
 uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
 version = "2022.0.0+1"
 
