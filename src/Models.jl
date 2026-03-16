@@ -1,40 +1,3 @@
-"""
-    `turing_normal_exponential_model(d, a, b; FWHM=0.08, Q=SNparams["Q"])`
-    
-    # Mixutre model built with normal and exponential components
-    - function parameters:
-      - `d` - data; **must be shifted to 0 for proper results!** 
-      - `a` - xoffset (used to shift the Q-value); equivalent to lower boundary of fitting region
-      - `b` - upper bound of fitting region
-      - `FWHM` - resolution in [% @ 1MeV]; used to calculate sigma at Q_keV
-      - `Q` - Q-value of the normally distributed signal
-
-    - priors:
-      - `lambda`: decay constant (watch out, julia uses inverse of lambda)
-      - `nSig`: number of signal events
-      - `nBkg`: number of background events
-
-"""
-@model function turing_normal_exponential_model(d, a, b; FWHM=0.08, Q=SNparams["Q"])
-    mu          = Q -a
-    sigma_at_Q  = get_sigma_keV(Q, FWHM)
-    n           = length(d)
-
-    # Priors 
-    lambda      ~ Uniform(1e-5,1e3)
-    nSig        ~ Uniform(1e-15, 10)
-    nBkg        ~ Uniform(1e-5, 1e3)
-
-    # Likelihood
-    l1 = nSig*pdf.(Normal(mu,sigma_at_Q), d) + nBkg*pdf.(Exponential(lambda), d) ./ (nSig+nBkg)
-
-    l1 = sum(log.(l1))
-    l2 = logpdf(Poisson(nSig+nBkg), n)
-
-    return Turing.@addlogprob! l1+l2
-end
-
-
 
 ####### 
 ## BAT
@@ -141,31 +104,6 @@ end
     return val > 0 ? val : eps(Float64)
 end
 
-# function f_uniform_bkg_idx(
-#     pars::NamedTuple{(:As,:Ab)},
-#     bin_index::Int,
-#     s_hist::Hist1D,
-#     b_hists::Vector{<:Hist1D}
-# )
-
-#     As = pars.As
-#     Ab = pars.Ab
-
-#     total_rate = As + sum(Ab)
-#     inv_total = inv(total_rate)
-
-#     # signal contribution
-#     val = As * inv_total * my_pdf_idx(s_hist, bin_index)
-
-#     # background contributions
-#     @inbounds for j in eachindex(b_hists)
-#         val += Ab[j] * inv_total *
-#                my_pdf_idx(b_hists[j], bin_index)
-#     end
-
-#     return val
-# end
-
 
 function make_hist_likelihood_uniform(
     h::Hist1D,
@@ -239,21 +177,6 @@ function f_dirichlet(pars::Vector{Float64}, x::Real, s_hist::Hist1D, b_hist::His
     return my_pdf(th, x) 
 end
 
-
-# function f_uniform_bkg(pars::NamedTuple{(:As, :Ab)}, x::Real, s_hist::Hist1D, b_hists::Vector{<:Hist1D})
-#     if length(pars.Ab) != length(b_hists)
-#         error("Number of parameters must be equal to number of histograms + 1")
-#     end
-#     As = pars.As
-#     Ab = pars.Ab |> collect
-#     total_rate = As + sum(Ab)
-
-#     sig = (pars.As / total_rate )*s_hist
-#     bkg = [ (pars.Ab[i] / total_rate)* b_hists[i] for i in 1:length(pars.Ab)]
-#     th = normalize( sum(vcat(sig, bkg)), width = true )
-    
-#     return my_pdf(th, x) 
-# end
 
 function f_uniform_bkg(pars::NamedTuple{(:As,:Ab)}, x::Real,
                        s_hist::Hist1D,

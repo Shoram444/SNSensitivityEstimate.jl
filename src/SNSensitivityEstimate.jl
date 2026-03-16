@@ -10,7 +10,6 @@ using
     DrWatson, 
     MakieCore, 
     Measurements,
-    Turing,
     CairoMakie,
     BAT,
     DensityInterface,
@@ -133,7 +132,6 @@ export
 
 include("Models.jl")
 export 
-    turing_normal_exponential_model,
     BAT_normal_exponential_model,
     ## binned Models
     my_pdf,
