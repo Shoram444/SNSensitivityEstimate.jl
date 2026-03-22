@@ -244,7 +244,7 @@ function f_uniform_bkg(pars::NamedTuple{(:As, :Ab)}, x::Real, s_hist::Hist1D, b_
 end
 
 
-function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal, prior; ROI_a = ROI_a, ROI_b = ROI_b, nsteps = 10^4, nchains = 4, smalles_interval = false)
+function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal, prior; ROI_a = ROI_a, ROI_b = ROI_b, nsteps = 10^4, nchains = 4, smallest_interval = false)
     sample_hists = [get_pseudo_spectrum(b) for b in bkg_hist] 
     data_hist = merge(sample_hists...)
 
@@ -268,7 +268,7 @@ function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal, prior; ROI_a
 
     nDataPoints = integral(data_hist)
     muS = [par[1] for par in binned_unshaped_samples.v]
-    exp_mu_signal_90 = if smalles_interval
+    exp_mu_signal_90 = if smallest_interval
         BAT.smallest_credible_intervals(muS, nsigma_equivalent= 1.65)[1].right * nDataPoints # this gives the smallest credible interval
     else
         quantile( muS,0.9) * nDataPoints
