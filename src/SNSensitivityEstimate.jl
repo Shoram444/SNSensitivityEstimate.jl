@@ -19,7 +19,7 @@ using
 
 # # Define main module abstract type
 
-const tbl_90 = CSV.read("src/MPFC_table90.csv", DataFrame)
+const tbl_90 = CSV.read(joinpath(@__DIR__, "MPFC_table90.csv"), DataFrame)
 
 
 include("Misc.jl")
