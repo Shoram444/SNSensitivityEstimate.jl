@@ -529,6 +529,21 @@ singleENnubb1500keVParams = Dict(
     :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
+sterileSingleEParams = Dict{Symbol, Dict}()
+for xx in 5:15
+    sterile_process = Symbol("sterile$(lpad(xx, 2, '0'))00_foil_bulk")
+    sterileSingleEParams[sterile_process] = Dict(
+        :isotopeName => string(sterile_process),
+        :signal => :true,
+        :activity => SigActivityParams[sterile_process],
+        :timeMeas => SNparams["t"],
+        :nTotalSim => SimulationParams[sterile_process],
+        :bins => binningDict[:SingleE],
+        :vertexPosition => "foil_bulk",
+        :amount => SNparams["foilMass"]*SNparams["a"]
+    )
+end
+
 ### bb0nuRHl_foil_bulk
 
 singleEbb0nuRHlParams = Dict(
@@ -626,4 +641,5 @@ singleEParams = Dict(
     :bb0nuScalar2_foil_bulk => singleEbb0nuScalar2Params,
     :Nnubb500keV_foil_bulk => singleENnubb500keVParams,
     :Nnubb1500keV_foil_bulk => singleENnubb1500keVParams,
+    sterileSingleEParams...,
 )

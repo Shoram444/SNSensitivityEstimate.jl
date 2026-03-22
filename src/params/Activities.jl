@@ -56,6 +56,11 @@ SigActivityParams = Dict(
     :Nnubb1500keV_foil_bulk =>   halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"]), # mock value
 )
 
+for xx in 5:15
+    sterile_process = Symbol("sterile$(lpad(xx, 2, '0'))00_foil_bulk")
+    SigActivityParams[sterile_process] = halfLife_to_activity(SNparams["Nₐ"], SNparams["W"], SNparams["SeThalf0nu"])
+end
+
 
 
 

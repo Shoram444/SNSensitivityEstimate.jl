@@ -49,3 +49,8 @@ SimulationParams = Dict(
     :K40_calo_8inch_scin_bulk => 1e8,
     :Bi214_calo_8inch_scin_bulk => 1e8
 )
+
+for xx in 5:15
+    sterile_process = Symbol("sterile$(lpad(xx, 2, '0'))00_foil_bulk")
+    SimulationParams[sterile_process] = 2e6
+end

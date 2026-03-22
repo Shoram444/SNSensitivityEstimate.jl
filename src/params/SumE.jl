@@ -519,6 +519,21 @@ sumENnubb1500keVParams = Dict(
     :amount => SNparams["foilMass"]*SNparams["a"]
 )
 
+sterileSumEParams = Dict{Symbol, Dict}()
+for xx in 5:15
+    sterile_process = Symbol("sterile$(lpad(xx, 2, '0'))00_foil_bulk")
+    sterileSumEParams[sterile_process] = Dict(
+        :isotopeName => string(sterile_process),
+        :signal => :true,
+        :activity => SigActivityParams[sterile_process],
+        :timeMeas => SNparams["t"],
+        :nTotalSim => SimulationParams[sterile_process],
+        :bins => binningDict[:SumE],
+        :vertexPosition => "foil_bulk",
+        :amount => SNparams["foilMass"]*SNparams["a"]
+    )
+end
+
 ### 0nubbRHl
 sumEbb0nuRHlParams = Dict(
     :isotopeName => "bb0nuRHl_foil_bulk", 
@@ -612,5 +627,6 @@ sumEParams = Dict(
     :bb0nuScalar2_foil_bulk => sumEbb0nuScalar2Params,
     :Nnubb500keV_foil_bulk => sumENnubb500keVParams,
     :Nnubb1500keV_foil_bulk => sumENnubb1500keVParams,
+    sterileSumEParams...,
 
 )
