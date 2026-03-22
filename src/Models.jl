@@ -259,7 +259,7 @@ function get_sens_bayes_uniform(bkg_hist::Vector{<:Hist1D}, signal, prior; ROI_a
     )
     
     burnin = MCMCMultiCycleBurnin(max_ncycles = 50, nsteps_final=1000)
-    mcmcalgo = MetropolisHastings(weighting = RepetitionWeighting(), tuning = AdaptiveMHTuning())
+    mcmcalgo = RandomWalk()
 
     posterior = PosteriorMeasure(my_likelihood, prior)
     samples, _ = bat_sample( posterior, MCMCSampling(mcalg = mcmcalgo, burnin = burnin, nsteps = nsteps, nchains = nchains))
