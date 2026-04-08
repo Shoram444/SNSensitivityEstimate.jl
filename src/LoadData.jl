@@ -43,6 +43,7 @@ function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothin
         
         f = ROOTFile(joinpath(dir, file)) 
         if(!haskey(f, treeName))
+            @error "mode must be one of the variables in rootfile! Chosen mode: $mode. Available keys: $(keys(f))"
             continue
         end
 
@@ -58,7 +59,7 @@ function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothin
 
         
         fileName = split(file, ".")[1]  |> split |> first 
-        if mode == "sumE"
+        if (mode == "sumE" || mode == "maxE" || mode == "minE" || mode == "avgE")
             e = df[:, Symbol(mode)] 
             push!(
                 processes,
@@ -90,7 +91,14 @@ function load_data_processes(dir::String, mode::String; fwhm = 0.08, roi= nothin
                 )
             )
         else
-            @error "mode must be one of: sumE, singleE, phi. Chosen mode: $mode!"
+            d = df[:, Symbol(mode)]
+            push!(
+                processes,
+                DataProcess(
+                    d,
+                    singleEParams[Symbol(fileName)]
+                )
+            )
         end
 
     end
