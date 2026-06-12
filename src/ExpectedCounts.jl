@@ -35,7 +35,7 @@ function get_FC(b, α; approximate="table", tbl = tbl_90)
         if (b < 329 && isapprox(1.64, α, atol=0.1))
             b = tbl_90[findfirst(tbl_90[:,1].== round(b, digits =2)), 2]
         else 
-            b = α * sqrt(b)
+            b = 1.8 * sqrt(b)
         end
     else
         b = α * sqrt(b)
