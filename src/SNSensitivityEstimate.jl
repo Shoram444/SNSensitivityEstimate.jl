@@ -3,7 +3,6 @@ module SNSensitivityEstimate
 using 
     # StatsPlots, 
     DataFramesMeta, 
-    LaTeXStrings, 
     FHist, 
     StatsBase, 
     UnROOT, 
@@ -36,7 +35,7 @@ export
     add_vertex_dz_separation_column!,
     get_sigma_keV,
     get_sigma_MeV
-    
+
 include("ExpectedCounts.jl")
 export 
     halfLife_to_activity,
