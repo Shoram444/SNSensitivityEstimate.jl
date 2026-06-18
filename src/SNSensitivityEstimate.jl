@@ -19,8 +19,12 @@ using
 
 # # Define main module abstract type
 
-const tbl_90 = CSV.read(joinpath(@__DIR__, "MPFC_table90.csv"), DataFrame)
+const tbl_90 = Ref{DataFrame}()
 
+function __init__()
+    path = joinpath(@__DIR__, "MPFC_table90.csv")
+    tbl_90[] = CSV.read(path, DataFrame)
+end
 
 include("Misc.jl")
 export 
