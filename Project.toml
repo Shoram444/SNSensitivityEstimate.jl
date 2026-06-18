@@ -21,7 +21,6 @@ Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
 Metaheuristics = "bcdb8e00-2c21-11e9-3065-2b553b22f898"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
 UnROOT = "3cd96dde-e98d-4713-81e9-a4a1b0235ce9"
 
 [compat]

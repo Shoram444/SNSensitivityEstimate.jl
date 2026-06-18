@@ -1,7 +1,7 @@
 module SNSensitivityEstimate
 
 using 
-    StatsPlots, 
+    # StatsPlots, 
     DataFramesMeta, 
     LaTeXStrings, 
     FHist, 
@@ -28,18 +28,15 @@ end
 
 include("Misc.jl")
 export 
-    generate_raw_plots,
     fill_from_root_file,
     get_2D_vertex_separation,
     get_1D_vertex_separation,
     add_vertex_2D_separation_column!,
     add_vertex_dy_separation_column!,
     add_vertex_dz_separation_column!,
-    generate_pseudo_data,
     get_sigma_keV,
-    get_sigma_MeV,
-    get_sensitivities_vs_time
-
+    get_sigma_MeV
+    
 include("ExpectedCounts.jl")
 export 
     halfLife_to_activity,
@@ -115,7 +112,7 @@ include("NDimDataProcess.jl")
         get_roi_bkg_counts_hist,
         get_best_ROI_ND
 
-include("PlotsRecipes.jl")
+# include("PlotsRecipes.jl")
 
 include("Makie.jl")
 export 

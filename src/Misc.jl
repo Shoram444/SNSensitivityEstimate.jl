@@ -1,67 +1,67 @@
 
 
 
-function generate_raw_plots(inDf::DataFrame, isotope; kwargs...)
-    phi, e1, e2 = inDf[!, :phi], inDf[!, :reconstructedEnergy1], inDf[!, :reconstructedEnergy2]
+# function generate_raw_plots(inDf::DataFrame, isotope; kwargs...)
+#     phi, e1, e2 = inDf[!, :phi], inDf[!, :reconstructedEnergy1], inDf[!, :reconstructedEnergy2]
 
-    plot_args = Dict(
-        :left_margin => 12Plots.mm,
-        :right_margin => 12Plots.mm,
-        :top_margin => 12Plots.mm,
-        :bottom_margin => 12Plots.mm,
-        :size => (1200, 900),
-        :dpi => 200,
-        :titlefontsize => 24,
-        :guidefontsize => 22,
-        :tickfontsize => 20,
-        :legendfontsize => 24,
-        :formatter => :auto,
-        :legend => :best,
-        :lw => 4,
-        :thickness_scaling => 1.1
-    )
+#     plot_args = Dict(
+#         :left_margin => 12Plots.mm,
+#         :right_margin => 12Plots.mm,
+#         :top_margin => 12Plots.mm,
+#         :bottom_margin => 12Plots.mm,
+#         :size => (1200, 900),
+#         :dpi => 200,
+#         :titlefontsize => 24,
+#         :guidefontsize => 22,
+#         :tickfontsize => 20,
+#         :legendfontsize => 24,
+#         :formatter => :auto,
+#         :legend => :best,
+#         :lw => 4,
+#         :thickness_scaling => 1.1
+#     )
 
-    hPhi = stephist(
-        phi;
-        nbins=0:5:180,
-        xlabel="escape angle " * L"[\degree]",
-        ylabel="counts/" * L"5\degree",
-        title="angular distribution of $isotope",
-        label="",
-        plot_args,
-        kwargs...
-    )
+#     hPhi = stephist(
+#         phi;
+#         nbins=0:5:180,
+#         xlabel="escape angle " * L"[\degree]",
+#         ylabel="counts/" * L"5\degree",
+#         title="angular distribution of $isotope",
+#         label="",
+#         plot_args,
+#         kwargs...
+#     )
 
-    hEne = stephist(
-        e1;
-        nbins=0:100:3500,
-        xlabel="single-electron energy [keV]",
-        ylabel="counts/" * "100 keV",
-        title="single electron energy distribution of $isotope",
-        label="energy 1",
-        plot_args,
-    )
+#     hEne = stephist(
+#         e1;
+#         nbins=0:100:3500,
+#         xlabel="single-electron energy [keV]",
+#         ylabel="counts/" * "100 keV",
+#         title="single electron energy distribution of $isotope",
+#         label="energy 1",
+#         plot_args,
+#     )
 
-    stephist!(
-        e2;
-        nbins=0:100:3500,
-        label="energy 2",
-        plot_args,
-    )
+#     stephist!(
+#         e2;
+#         nbins=0:100:3500,
+#         label="energy 2",
+#         plot_args,
+#     )
 
-    stephist!(
-        vcat(e1, e2);
-        nbins=0:100:3500,
-        label="both electrons",
-        plot_args,
-    )
+#     stephist!(
+#         vcat(e1, e2);
+#         nbins=0:100:3500,
+#         label="both electrons",
+#         plot_args,
+#     )
 
-    safesave(plotsdir("Raw", "Angular", "$(isotope)_raw_angdist.png"), hPhi)
-    safesave(plotsdir("Raw", "Single", "$(isotope)_raw_enedist.png"), hEne)
+#     safesave(plotsdir("Raw", "Angular", "$(isotope)_raw_angdist.png"), hPhi)
+#     safesave(plotsdir("Raw", "Single", "$(isotope)_raw_enedist.png"), hEne)
 
-    plot(hPhi, hEne, size=(1800, 600))
+#     plot(hPhi, hEne, size=(1800, 600))
 
-end
+# end
 
 function fill_from_root_file(inFile::ROOTFile, treeName::String, fieldNames; roi = nothing)
     data = LazyTree(inFile, treeName, [fieldNames...]) 
@@ -112,62 +112,62 @@ function add_vertex_dz_separation_column!(df)
 end
 
 
-function generate_pseudo_data(h1d::Hist1D)
-	n_i = map(x->rand(Poisson(x)), bincounts(h1d))
-	b_i = collect(binedges(h1d))
-	bin_widths = diff(b_i) # vector of bin widths (in case of non-uniform binning)
+# function generate_pseudo_data(h1d::Hist1D)
+# 	n_i = map(x->rand(Poisson(x)), bincounts(h1d))
+# 	b_i = collect(binedges(h1d))
+# 	bin_widths = diff(b_i) # vector of bin widths (in case of non-uniform binning)
 	
-	data = Vector{Float64}(undef, sum(n_i))
-	idx_slice = 1
-	for (ni, bi, bw_i) in zip(n_i, b_i, bin_widths)
-		if(ni != 0)
-			data[idx_slice:idx_slice+ni-1] = rand(Uniform(bi, bi + bw_i ), ni)
-			idx_slice+=ni
-		end
-	end
-	return data 
-end
+# 	data = Vector{Float64}(undef, sum(n_i))
+# 	idx_slice = 1
+# 	for (ni, bi, bw_i) in zip(n_i, b_i, bin_widths)
+# 		if(ni != 0)
+# 			data[idx_slice:idx_slice+ni-1] = rand(Uniform(bi, bi + bw_i ), ni)
+# 			idx_slice+=ni
+# 		end
+# 	end
+# 	return data 
+# end
 
 get_sigma_MeV(E_MeV, FWHM) = 1/(2*sqrt(2*log(2)))*FWHM*sqrt(1/E_MeV)*E_MeV
 get_sigma_keV(E_keV, FWHM) = get_sigma_MeV(E_keV/1000.0, FWHM) * 1000.0
 
 
 
-"""
-    get_sensitivities_vs_time(signal, background, SNparams; neutron_bkg = 0.0, effFactor = 1.0)
-Calculates the sensitivities of a given signal against a background over time, based on the provided SN parameters.
+# """
+#     get_sensitivities_vs_time(signal, background, SNparams; neutron_bkg = 0.0, effFactor = 1.0)
+# Calculates the sensitivities of a given signal against a background over time, based on the provided SN parameters.
 
-`signal` and `background` are the signal and background processes, respectively.
-`SNparams` is a dictionary containing the parameters for the supernova sensitivity calculation.
-`neutron_bkg` is the neutron background, defaulting to 0.0.
-`effFactor` is a factor to adjust the efficiency, defaulting to 1.0
+# `signal` and `background` are the signal and background processes, respectively.
+# `SNparams` is a dictionary containing the parameters for the supernova sensitivity calculation.
+# `neutron_bkg` is the neutron background, defaulting to 0.0.
+# `effFactor` is a factor to adjust the efficiency, defaulting to 1.0
 
-"""
-function get_sensitivities_vs_time(
-        signal,
-        background,
-        SNparams;
-        neutron_bkg = 0.0,
-        effFactor = 1.0
-    )
-    t = range(0, 5, 100)
-    sensitivities = []
+# """
+# function get_sensitivities_vs_time(
+#         signal,
+#         background,
+#         SNparams;
+#         neutron_bkg = 0.0,
+#         effFactor = 1.0
+#     )
+#     t = range(0, 5, 100)
+#     sensitivities = []
     
-    t12(t, e, b) = get_tHalf(
-        SNparams["W"],
-        SNparams["foilMass"],
-        SNparams["Nₐ"],
-        t,
-        SNparams["a"],
-        e*effFactor,
-        (b+neutron_bkg)/ SNparams["tYear"] * t,
-        α;
-        approximate="table"
-    )
-    t12MapESum = get_tHalf_map(SNparams, α, signal, background...; approximate ="table")
-    best_t12ESum = get_max_bin(t12MapESum)
-    expBkgESum = get_bkg_counts_ROI(best_t12ESum, background...)
-    effbb = lookup(signal, best_t12ESum)
-    append!(sensitivities, t12.(t, effbb,expBkgESum))
-    return sensitivities
-end
+#     t12(t, e, b) = get_tHalf(
+#         SNparams["W"],
+#         SNparams["foilMass"],
+#         SNparams["Nₐ"],
+#         t,
+#         SNparams["a"],
+#         e*effFactor,
+#         (b+neutron_bkg)/ SNparams["tYear"] * t,
+#         α;
+#         approximate="table"
+#     )
+#     t12MapESum = get_tHalf_map(SNparams, α, signal, background...; approximate ="table")
+#     best_t12ESum = get_max_bin(t12MapESum)
+#     expBkgESum = get_bkg_counts_ROI(best_t12ESum, background...)
+#     effbb = lookup(signal, best_t12ESum)
+#     append!(sensitivities, t12.(t, effbb,expBkgESum))
+#     return sensitivities
+# end
