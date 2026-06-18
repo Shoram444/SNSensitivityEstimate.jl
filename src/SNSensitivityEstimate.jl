@@ -9,7 +9,7 @@ using
     DrWatson, 
     MakieCore, 
     Measurements,
-    CairoMakie,
+    # CairoMakie,
     BAT,
     DensityInterface,
     SpecialFunctions,
