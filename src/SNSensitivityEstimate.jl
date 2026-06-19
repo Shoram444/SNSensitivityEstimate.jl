@@ -128,7 +128,8 @@ export
     load_data_processes,
     load_hist_processes,
     load_3D_processes,
-    load_ndim_processes
+    load_ndim_processes,
+    filter_data
 
 include("Models.jl")
 export 

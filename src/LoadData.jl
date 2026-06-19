@@ -8,6 +8,26 @@ function smear_energy(E::Real, fwhm::Real)
     return rand(Normal(E, sigma))
 end
 
+"""
+`filter_data(data::LazyTree, varNames::Vector{String}, roi::NamedTuple)`
+
+Filters the given LazyTree data according to the provided region of interest (ROI) for each variable.
+
+    - `data`: A LazyTree containing the data to be filtered.
+    - `varNames`: A vector of variable names (as strings) corresponding to the fields in the LazyTree that should be filtered.
+    - `roi`: A NamedTuple where each key is a variable name (as a Symbol) and each value is a tuple containing the minimum and maximum values for that variable. The function will filter the data in place.
+"""
+function filter_data(data::LazyTree, varNames::Vector{String}, roi::NamedTuple)
+    cols = NamedTuple(Symbol(n) => collect(getproperty(data, Symbol(n))) for n in varNames)
+    mask = trues(length(data))
+    for n in varNames
+        col = cols[Symbol(n)]
+        lo, hi = roi[Symbol(n)]
+        @. mask &= (col > lo) & (col < hi)
+    end
+    data[mask]
+end
+
 function load_files(dir::String; treeName = "tree", keys = ["phi", "reconstructedEnergy1", "reconstructedEnergy2"], roi = nothing)
     ffrf(file; roi = roi, treeName = treeName, keys = keys) = fill_from_root_file(file, treeName, keys, roi = roi)
     filesDict = Dict()
