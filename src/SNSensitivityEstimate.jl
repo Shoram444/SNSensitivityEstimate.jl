@@ -109,9 +109,10 @@ include("NDimDataProcess.jl")
         make_stepRange,
         get_best_ROI_ND,
         get_roi_bkg_counts_hist,
-        get_best_ROI_ND
-
-# include("PlotsRecipes.jl")
+        GridSpec,
+        decode_grid_roi,
+        encode_grid_roi,
+        value_to_index
 
 include("Makie.jl")
 export 
