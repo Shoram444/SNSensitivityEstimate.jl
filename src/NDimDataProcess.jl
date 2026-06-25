@@ -128,26 +128,6 @@ function get_roi_effciencyND(
     )
 end
 
-# function get_roi_effciencyND(
-#     data::Vector{UnROOT.LazyEvent}, 
-#     roi::Vector{<:Real}, 
-#     nTotalSim::Real,
-#     varIdxs::Vector{Int}
-# )
-
-#     count = Threads.Atomic{Int}(0)  # Atomic counter for thread-safe increment
-
-#     Threads.@threads for i in eachindex(data)
-#         if passes_roi( data[i], roi, varIdxs)
-#             Threads.atomic_add!(count, 1)  # Thread-safe increment
-#         end
-#     end
-
-#     return ROIEfficiencyND(
-#         roi,  
-#         count[] / nTotalSim  # Extract final atomic count
-#     )
-# end
 
 function get_roi_effciencyND(
     process::DataProcessND,
@@ -425,6 +405,164 @@ function make_stepRange(process::DataProcessND)
 end
 
 
+# =====================================================================
+#  Stepped (discrete-grid) search support
+#  Instead of optimizing physical ROI edges directly, we optimize integer
+#  step-indices `j ∈ [0, nsteps]` per variable. A proposed (continuous)
+#  index is rounded to the nearest grid node and decoded to the physical
+#  edge `min + j*step`. This discretizes the search space and removes the
+#  sub-resolution moves that make the objective look flat to the optimizer.
+# =====================================================================
+
+"""
+    GridSpec
+
+Describes the discrete search grid over the ROI variables of a process.
+
+Fields (all aligned with `keys(process.bins)`):
+- `keys`   : variable names (`Vector{Symbol}`)
+- `mins`   : lower edge of each variable's range
+- `steps`  : step size of each variable
+- `nsteps` : number of steps so that `mins + nsteps*steps ≤ max`
+"""
+struct GridSpec
+    keys::Vector{Symbol}
+    mins::Vector{Float64}
+    steps::Vector{Float64}
+    nsteps::Vector{Int}
+end
+
+# Resolve the step size for variable `k` from the user-provided `steps`,
+# which may be a scalar (same step for all), a NamedTuple, or a Dict.
+_get_step(steps::Real, k) = float(steps)
+_get_step(steps::NamedTuple, k) = float(steps[k])
+_get_step(steps::AbstractDict, k) = float(haskey(steps, k) ? steps[k] : steps[Symbol(k)])
+
+"""
+    GridSpec(process::DataProcessND, steps)
+
+Build a `GridSpec` from a process and a `steps` specification. `steps` can be
+a single number applied to every variable, or a `NamedTuple`/`Dict` keyed by
+variable name giving a per-variable step size, e.g. `(sumE = 100, phi = 10)`.
+"""
+function GridSpec(process::DataProcessND, steps)
+    ks = collect(keys(process.bins))
+    mins   = Float64[]
+    stepv  = Float64[]
+    nsteps = Int[]
+    for k in ks
+        lo, hi = process.bins[k]
+        s = _get_step(steps, k)
+        s > 0 || error("Step size for $k must be positive, got $s")
+        push!(mins, lo)
+        push!(stepv, s)
+        push!(nsteps, floor(Int, (hi - lo) / s))  # floor => decoded edge never exceeds hi
+    end
+    return GridSpec(ks, mins, stepv, nsteps)
+end
+
+"""
+    make_stepRange(process::DataProcessND, steps) -> Vector{Tuple{Int,Int}}
+
+Grid version: returns the integer index bounds `(0, nsteps)` (lower and upper
+edge) for each variable, to be used as optimization bounds together with the
+`GridSpec`. Use `GridSpec(process, steps)` to build the decoder.
+"""
+function make_stepRange(process::DataProcessND, steps)
+    grid = GridSpec(process, steps)
+    return make_stepRange(grid)
+end
+
+function make_stepRange(grid::GridSpec)
+    stepRange = Tuple{Int64, Int64}[]
+    for n in grid.nsteps
+        push!(stepRange, (0, n))  # lower edge index
+        push!(stepRange, (0, n))  # upper edge index
+    end
+    return stepRange
+end
+
+"""
+    decode_grid_roi(indices, grid::GridSpec) -> Vector{Float64}
+
+Convert a vector of (possibly continuous) step-indices
+`[lo₁, hi₁, lo₂, hi₂, …]` into physical ROI edges
+`[min₁+lo₁*s₁, min₁+hi₁*s₁, …]`. Indices are rounded to the nearest grid node.
+"""
+function decode_grid_roi(indices::AbstractVector, grid::GridSpec)
+    roi = Vector{Float64}(undef, length(indices))
+    @inbounds for (j, vi) in enumerate(1:2:length(indices)-1)
+        idx_lo = clamp(round(Int, indices[vi]),   0, grid.nsteps[j])
+        idx_hi = clamp(round(Int, indices[vi+1]), 0, grid.nsteps[j])
+        roi[vi]   = grid.mins[j] + idx_lo * grid.steps[j]
+        roi[vi+1] = grid.mins[j] + idx_hi * grid.steps[j]
+    end
+    return roi
+end
+
+"""
+    value_to_index(value, min, step; nsteps=nothing) -> Int
+
+Convert a single physical `value` into the nearest grid step-index given the
+variable's lower edge `min` and `step` size, i.e. `round((value - min) / step)`.
+If `nsteps` is provided the result is clamped to `[0, nsteps]`.
+"""
+function value_to_index(value::Real, min::Real, step::Real; nsteps=nothing)
+    idx = round(Int, (value - min) / step)
+    return nsteps === nothing ? idx : clamp(idx, 0, nsteps)
+end
+
+"""
+    encode_grid_roi(roi, grid::GridSpec) -> Vector{Int}
+
+Inverse of [`decode_grid_roi`](@ref): convert physical ROI edges into integer
+grid step-indices. `roi` may be either
+
+- a flat vector of edges `[lo₁, hi₁, lo₂, hi₂, …]` (same order as `grid.keys`), or
+- a `NamedTuple` keyed by variable, e.g. `(sumE = (2700, 3100), phi = (0, 180))`.
+
+Indices are clamped to each variable's `[0, nsteps]` range so the result is a
+valid starting point (`x0`) for the optimizer.
+"""
+function encode_grid_roi(roi::AbstractVector, grid::GridSpec)
+    indices = Vector{Int}(undef, length(roi))
+    @inbounds for (j, vi) in enumerate(1:2:length(roi)-1)
+        indices[vi]   = value_to_index(roi[vi],   grid.mins[j], grid.steps[j]; nsteps=grid.nsteps[j])
+        indices[vi+1] = value_to_index(roi[vi+1], grid.mins[j], grid.steps[j]; nsteps=grid.nsteps[j])
+    end
+    return indices
+end
+
+function encode_grid_roi(roi::NamedTuple, grid::GridSpec)
+    indices = Int[]
+    for (j, k) in enumerate(grid.keys)
+        lo, hi = roi[k]
+        push!(indices, value_to_index(lo, grid.mins[j], grid.steps[j]; nsteps=grid.nsteps[j]))
+        push!(indices, value_to_index(hi, grid.mins[j], grid.steps[j]; nsteps=grid.nsteps[j]))
+    end
+    return indices
+end
+
+"""
+    get_s_to_b(SNparams, α, processes, indices, grid::GridSpec; approximate)
+
+Grid-aware objective: decodes integer step-`indices` to a physical ROI via
+`grid`, then evaluates the standard `get_s_to_b`. This is the function to wrap
+for `Metaheuristics.optimize` when doing a stepped search.
+"""
+function get_s_to_b(
+    SNparams::Dict,
+    α::Real,
+    processes::Vector{<:DataProcessND},
+    indices::AbstractVector,
+    grid::GridSpec;
+    approximate="formula"
+)
+    roi = decode_grid_roi(indices, grid)
+    return get_s_to_b(SNparams, float(α), processes, roi; approximate=approximate)
+end
+
+
 function get_best_ROI_ND(res, process)
     best = best_candidate(res)
     best_roi = NamedTuple(
@@ -441,6 +579,18 @@ function get_best_ROI_ND(res::Vector{<:Real}, process)
         for (i,k) in zip(1:2:length(process.bins)*2-1, keys(process.bins))
     )
     return best_roi
+end
+
+"""
+    get_best_ROI_ND(res::Vector, process, grid::GridSpec) -> NamedTuple
+
+Grid version: decodes the optimizer's best step-indices through `grid` into
+physical ROI edges before building the ROI `NamedTuple`. Pass the minimizer
+vector, e.g. `get_best_ROI_ND(minimizer(result), process, grid)`.
+"""
+function get_best_ROI_ND(res::Vector{<:Real}, process, grid::GridSpec)
+    best = decode_grid_roi(res, grid)
+    return get_best_ROI_ND(best, process)
 end
 
 # Obtain the background counts histogram for a given ROI and process and variable 
