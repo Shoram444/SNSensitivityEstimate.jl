@@ -23,7 +23,9 @@ function get_tHalf(W, foilMass, Nₐ, tYear, a , efficiency, bkgCounts, α; appr
 end
 
 
-function get_FC(b, α; approximate="table", tbl = tbl_90)
+function get_FC(b, α; approximate="table", tbl = SNSensitivityEstimate.tbl_90[]
+)
+    
     b = Measurements.value(b) # need to figure out how to work this with BBO
     if( approximate == "formula")
         if (b < 30 && isapprox(1.64, α, atol=0.1))
@@ -33,7 +35,7 @@ function get_FC(b, α; approximate="table", tbl = tbl_90)
         end
     elseif( approximate == "table")
         if (b < 329 && isapprox(1.64, α, atol=0.1))
-            b = tbl_90[findfirst(tbl_90[:,1].== round(b, digits =2)), 2]
+            b = tbl[findfirst(tbl[:,1].== round(b, digits =2)), 2]
         else 
             b = 1.8 * sqrt(b)
         end
