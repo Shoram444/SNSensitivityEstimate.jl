@@ -20,14 +20,13 @@ Filters the given LazyTree data according to the provided region of interest (RO
 function filter_data(data::LazyTree, varNames::Vector{String}, roi::NamedTuple)
     cols = NamedTuple(Symbol(n) => collect(getproperty(data, Symbol(n))) for n in varNames)
     mask = trues(length(data))
+
     for n in varNames
         s = Symbol(n)
         if haskey(roi, s)
             col = cols[s]
             lo, hi = roi[s]
             @. mask &= (col > lo) & (col < hi)
-        else
-            @info "Key $s not found in roi, skipping filtering for this variable."
         end
     end
     data[mask]
