@@ -17,13 +17,18 @@ Filters the given LazyTree data according to the provided region of interest (RO
     - `varNames`: A vector of variable names (as strings) corresponding to the fields in the LazyTree that should be filtered.
     - `roi`: A NamedTuple where each key is a variable name (as a Symbol) and each value is a tuple containing the minimum and maximum values for that variable. The function will filter the data in place.
 """
-function filter_data(data::LazyTree, varNames::Vector{String}, roi::NamedTuple)
+function filter_data(data::LazyTree, varNames::Vector{String}, roi::NamedTuple; optional::Bool = false)
     cols = NamedTuple(Symbol(n) => collect(getproperty(data, Symbol(n))) for n in varNames)
     mask = trues(length(data))
     for n in varNames
-        col = cols[Symbol(n)]
-        lo, hi = roi[Symbol(n)]
-        @. mask &= (col > lo) & (col < hi)
+        s = Symbol(n)
+        if haskey(roi, s)
+            col = cols[s]
+            lo, hi = roi[s]
+            @. mask &= (col > lo) & (col < hi)
+        elseif !optional
+            @error "ROI does not contain a range for variable: $n. Please provide a range for this variable in the ROI."
+        end
     end
     data[mask]
 end
