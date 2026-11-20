@@ -112,7 +112,8 @@ include("NDimDataProcess.jl")
         GridSpec,
         decode_grid_roi,
         encode_grid_roi,
-        value_to_index
+        value_to_index,
+        with_variable
 
 include("Makie.jl")
 export 

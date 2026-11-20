@@ -636,3 +636,29 @@ function print(best_roi::SensitivityEstimateND)
         println("  $k : $(v)")
     end
 end
+
+
+function with_variable(p::DataProcessND, name::Symbol, f, bounds::Tuple{<:Real,<:Real})
+    isempty(p.data) && error("Cannot add a variable to an empty process")
+
+    fields = propertynames(first(p.data))
+    name in fields && error("Variable $name already exists")
+
+    # Zachová všetky pôvodné stĺpce, nielen optimalizované.
+    columns = NamedTuple(
+        field => [getproperty(event, field) for event in p.data]
+        for field in fields
+    )
+
+    values = [f(event) for event in p.data]
+    new_column = NamedTuple{(name,)}((values,))
+    tree = UnROOT.LazyTree(merge(columns, new_column))
+
+    new_bounds = NamedTuple{(name,)}((bounds,))
+    bins = merge(p.bins, new_bounds)
+
+    return DataProcessND(
+        tree, p.isotopeName, p.signal, p.activity, p.timeMeas,
+        p.nTotalSim, bins, p.amount, [p.varNames; String(name)],
+    )
+end
